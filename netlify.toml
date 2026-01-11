@@ -1,0 +1,32 @@
+# Configuración de Netlify para Progetto Tech Kids
+# Dominio: progettokids.com
+
+[build]
+  publish = "."
+  command = "echo 'Sitio estático - no requiere build'"
+  functions = "netlify/functions"
+
+# Redirecciones y reglas
+[[redirects]]
+  from = "/cursos"
+  to = "/#countdown-section"
+  status = 301
+
+[[redirects]]
+  from = "/calendario"
+  to = "/#calendario-cursos"
+  status = 301
+
+[[redirects]]
+  from = "/contacto"
+  to = "/#whatsapp"
+  status = 301
+
+# Configurar headers de seguridad
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

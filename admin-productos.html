@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Agregar Productos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #0b4d8c;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .tab {
+      padding: 0.75rem 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      color: #666;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .tab.active {
+      color: #667eea;
+      border-bottom-color: #667eea;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .checkbox-group {
+      display: flex;
+      gap: 2rem;
+      margin-top: 0.5rem;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .checkbox-item input {
+      width: auto;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+    }
+    .product-list {
+      display: grid;
+      gap: 1rem;
+    }
+    .product-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      align-items: center;
+    }
+    .product-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .product-info {
+      flex: 1;
+    }
+    .product-info h3 {
+      color: #0b4d8c;
+      margin-bottom: 0.25rem;
+    }
+    .product-info p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    .product-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .btn-small {
+      padding: 0.5rem 1rem;
+      width: auto;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .btn-edit {
+      background: #28a745;
+    }
+    .btn-delete {
+      background: #dc3545;
+    }
+    .alert {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .alert-info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+    .instructions {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .instructions h3 {
+      color: #856404;
+      margin-bottom: 0.5rem;
+    }
+    .instructions ol {
+      margin-left: 1.5rem;
+      color: #856404;
+    }
+    .instructions li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛠️ Panel de Administración - Productos</h1>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('add')">➕ Agregar Producto</button>
+      <button class="tab" onclick="switchTab('list')">📋 Ver Productos</button>
+      <button class="tab" onclick="switchTab('json')">📄 Editar JSON</button>
+    </div>
+
+    <!-- Tab: Agregar Producto -->
+    <div id="tab-add" class="tab-content active">
+      <div class="instructions">
+        <h3>📝 Instrucciones:</h3>
+        <ol>
+          <li>Llena el formulario con los datos del producto</li>
+          <li>Haz clic en "Agregar Producto"</li>
+          <li>Descarga el archivo products.json actualizado</li>
+          <li>Reemplázalo en tu carpeta del proyecto</li>
+          <li>Sube nuevamente a Netlify</li>
+        </ol>
+      </div>
+
+      <div id="alert-container"></div>
+
+      <form id="productForm">
+        <div class="form-group">
+          <label>Nombre del Producto *</label>
+          <input type="text" id="productName" required placeholder="ej: 🎮 Kit Flash Back">
+        </div>
+
+        <div class="form-group">
+          <label>Descripción *</label>
+          <textarea id="productDescription" required placeholder="Describe el producto..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Precio (MXN) *</label>
+          <input type="number" id="productPrice" required placeholder="319">
+        </div>
+
+        <div class="form-group">
+          <label>Precio Original (opcional, para mostrar descuento)</label>
+          <input type="number" id="productOriginalPrice" placeholder="399">
+        </div>
+
+        <div class="form-group">
+          <label>URL de Imagen *</label>
+          <input type="url" id="productImage" required placeholder="img/productos/mi-imagen.jpg">
+          <small style="color: #666; display: block; margin-top: 0.5rem;">
+            Puede ser una ruta local (img/...) o URL de Unsplash
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Categoría *</label>
+          <select id="productCategory" required>
+            <option value="">Selecciona una categoría</option>
+            <option value="stampa">🖨️ Progetto Stampa</option>
+            <option value="robots-inter">🤖 Robots Internacionales</option>
+            <option value="kits">⚡ Kits de Robótica</option>
+            <option value="software">📚 Libros Software</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Estado del Producto</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="productStock" checked>
+              <label for="productStock" style="margin: 0;">✅ Disponible en stock</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="productPromo">
+              <label for="productPromo" style="margin: 0;">🔥 Producto en promoción</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="productFeatured">
+              <label for="productFeatured" style="margin: 0;">⭐ Producto destacado</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="productDevelopment">
+              <label for="productDevelopment" style="margin: 0;">🚧 En desarrollo</label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit">➕ Agregar Producto</button>
+      </form>
+    </div>
+
+    <!-- Tab: Lista de Productos -->
+    <div id="tab-list" class="tab-content">
+      <div class="alert alert-info">
+        Aquí puedes ver todos los productos actuales. Para editar, usa la pestaña "Editar JSON" o edita el archivo directamente.
+      </div>
+      <div id="productList" class="product-list"></div>
+    </div>
+
+    <!-- Tab: JSON Editor -->
+    <div id="tab-json" class="tab-content">
+      <div class="alert alert-info">
+        Edita el JSON directamente. Asegúrate de mantener el formato correcto.
+      </div>
+      <div class="form-group">
+        <textarea id="jsonEditor" style="min-height: 400px; font-family: monospace; font-size: 0.9rem;"></textarea>
+      </div>
+      <button onclick="downloadJSON()">💾 Descargar products.json</button>
+    </div>
+  </div>
+
+  <script>
+    let productsData = { products: [], categories: [] };
+
+    // Cargar productos existentes
+    fetch('products.json')
+      .then(res => res.json())
+      .then(data => {
+        productsData = data;
+        loadProductList();
+        loadJSONEditor();
+      })
+      .catch(() => {
+        productsData = {
+          products: [],
+          categories: [
+            { id: "todos", name: "Todos", icon: "🔍" },
+            { id: "stampa", name: "Progetto Stampa", icon: "🖨️" },
+            { id: "robots-inter", name: "Robots Internacionales", icon: "🤖" },
+            { id: "kits", name: "Kits de Robótica", icon: "⚡" },
+            { id: "software", name: "Libros Software", icon: "📚" }
+          ]
+        };
+      });
+
+    // Cambiar tabs
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById(`tab-${tab}`).classList.add('active');
+    }
+
+    // Agregar producto
+    document.getElementById('productForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const newProduct = {
+        id: productsData.products.length + 1,
+        name: document.getElementById('productName').value,
+        description: document.getElementById('productDescription').value,
+        price: parseInt(document.getElementById('productPrice').value),
+        originalPrice: document.getElementById('productOriginalPrice').value ? 
+          parseInt(document.getElementById('productOriginalPrice').value) : null,
+        image: document.getElementById('productImage').value,
+        category: document.getElementById('productCategory').value,
+        stock: document.getElementById('productStock').checked,
+        promo: document.getElementById('productPromo').checked,
+        featured: document.getElementById('productFeatured').checked,
+        development: document.getElementById('productDevelopment').checked
+      };
+
+      productsData.products.push(newProduct);
+      
+      showAlert('✅ Producto agregado correctamente. Descarga el JSON actualizado en la pestaña "Editar JSON".', 'success');
+      
+      // Limpiar formulario
+      document.getElementById('productForm').reset();
+      
+      // Actualizar vistas
+      loadProductList();
+      loadJSONEditor();
+    });
+
+    // Mostrar lista de productos
+    function loadProductList() {
+      const container = document.getElementById('productList');
+      container.innerHTML = '';
+
+      productsData.products.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/80'">
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>$${product.price} MXN | ${product.category} | ${product.stock ? '✅ Stock' : '❌ Sin stock'}</p>
+          </div>
+          <div class="product-actions">
+            <button class="btn-small btn-delete" onclick="deleteProduct(${product.id})">🗑️ Eliminar</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Eliminar producto
+    function deleteProduct(id) {
+      if (confirm('¿Seguro que quieres eliminar este producto?')) {
+        productsData.products = productsData.products.filter(p => p.id !== id);
+        // Reordenar IDs
+        productsData.products.forEach((p, i) => p.id = i + 1);
+        loadProductList();
+        loadJSONEditor();
+        showAlert('🗑️ Producto eliminado', 'success');
+      }
+    }
+
+    // Cargar editor JSON
+    function loadJSONEditor() {
+      document.getElementById('jsonEditor').value = JSON.stringify(productsData, null, 2);
+    }
+
+    // Descargar JSON
+    function downloadJSON() {
+      const jsonText = document.getElementById('jsonEditor').value;
+      const blob = new Blob([jsonText], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'products.json';
+      a.click();
+      showAlert('💾 Archivo descargado. Reemplázalo en tu proyecto y vuelve a desplegar.', 'success');
+    }
+
+    // Mostrar alerta
+    function showAlert(message, type) {
+      const container = document.getElementById('alert-container');
+      container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+      setTimeout(() => container.innerHTML = '', 5000);
+    }
+  </script>
+</body>
+</html>

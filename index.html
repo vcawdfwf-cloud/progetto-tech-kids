@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Progetto Tech Kids | Tecnología para niños y papás</title>
+  <meta name="description"
+    content="Cursos de robótica, programación y tecnología para niños. Recursos para padres y tienda en línea." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+  </style>
+</head>
+</head>
+
+<body>
+  <!-- Overlay de Mantenimiento Condicional -->
+  <!-- Se muestra SOLO si el dominio es progettokids.com -->
+  <div id="maintenance-overlay"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f0f8ff; z-index: 99999; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+    <div style="max-width: 600px; width: 90%;">
+      <img src="img/maintenance.jpg" alt="Estamos trabajando"
+        style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+      <h2 style="color: #0b4d8c; margin-top: 2rem;">Redirigiendo...</h2>
+      <p style="color: #666; font-size: 1.1rem; margin-bottom: 2rem;">Te estamos llevando al sitio temporal en <span
+          id="redir-timer">5</span> segundos.</p>
+      <a href="https://progetto-deploy.vercel.app/"
+        style="background: #007bff; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 10px rgba(0,123,255,0.3);">Ir
+        ahora mismo</a>
+    </div>
+  </div>
+
+  <script>
+    // Lógica de Redirección Inteligente
+    (function () {
+      var hostname = window.location.hostname;
+      // Lista de dominios que deben mostrar mantenimiento y redirigir
+      // Incluye variants con y sin www
+      if (hostname.includes('progettokids.com')) {
+        // 1. Mostrar Overlay
+        var overlay = document.getElementById('maintenance-overlay');
+        if (overlay) overlay.style.display = 'flex';
+
+        // 2. Desactivar scroll del sitio de fondo
+        document.body.style.overflow = 'hidden';
+
+        // 3. Cuenta regresiva visual
+        var seconds = 5;
+        var timerSpan = document.getElementById('redir-timer');
+        setInterval(function () {
+          seconds--;
+          if (timerSpan) timerSpan.innerText = seconds;
+        }, 1000);
+
+        // 4. Redirigir
+        setTimeout(function () {
+          window.location.href = "https://progetto-deploy.vercel.app/";
+        }, 5000);
+      }
+    })();
+  </script>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__row">
+      <a class="brand" href="index.html">
+        <img src="img/logo.png" alt="Progetto Tech Kids" class="brand__logo"
+          style="width: 50px; height: 50px; border-radius: 8px; object-fit: contain; background: white; padding: 5px;">
+        <span class="brand__text">
+          <strong>Progetto Tech Kids</strong>
+          <small>Tecnología • Robótica • Creatividad</small>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a class="nav__link active" href="index.html">Inicio</a>
+        <a class="nav__link" href="#countdown-section">Cursos</a>
+        <a class="nav__link" href="tienda.html">Tienda</a>
+        <a class="nav__link" href="blog.html">Blog</a>
+        <a class="nav__link" href="contacto.html">Contacto</a>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Abrir menú">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__text" style="animation: fadeInUp 0.8s ease-out;">
+          <div
+            style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(102,126,234,0.3);">
+            ⚡ +500 niños ya están aprendiendo
+          </div>
+          <h1
+            style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 1rem; font-weight: 800; color: #0f1724;">
+            Tu hijo <span
+              style="display: inline-block; animation: float 3s ease-in-out infinite; color: #ff6b6b; font-weight: 900;">creará</span>
+            lo que imagina con <span
+              style="background: linear-gradient(135deg, #0b4d8c 0%, #1e88e5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 900;">tecnología</span>
+            🚀
+          </h1>
+          <p style="font-size: 1.15rem; color: #4a5568; line-height: 1.7; margin-bottom: 1.5rem;">
+            ⭐ De cero a crear sus propios robots, videojuegos y proyectos electrónicos. <strong>Sin experiencia
+              previa</strong>. Método probado por familias mexicanas.
+          </p>
+          <div class="weekly" style="animation: fadeInUp 1s ease-out 0.3s backwards;">
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: #0b4d8c; font-weight: 700;">🆕 ¡NUEVO! Kit
+              Flash Back</h4>
+            <div class="weekly__frame"
+              style="box-shadow: 0 10px 30px rgba(11,77,140,0.15); border: 2px solid rgba(11,77,140,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;"
+              onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 40px rgba(11,77,140,0.25)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(11,77,140,0.15)'">
+              <div class="productos-carousel" id="productos-carousel">
+                <div class="productos-track" id="productos-track">
+                  <a href="tienda.html" class="producto-link" style="position: relative; display: block;">
+                    <img src="img/novedad-3.png" alt="Kit Flash Back - Juego de Memoria con Arduino">
+                    <div
+                      style="position: absolute; top: 10px; left: 10px; background: #ff6b6b; color: white; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                      🔥 NUEVO PROYECTO
+                    </div>
+                    <div id="countdown-badge"
+                      style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(102,126,234,0.4); animation: pulse 2s ease-in-out infinite; z-index: 10;">
+                      ⏰ Cargando...
+                    </div>
+                  </a>
+                  <a href="tienda.html" class="producto-link">
+                    <img src="img/novedad-1.png" alt="Producto nuevo 1">
+                  </a>
+                  <a href="tienda.html" class="producto-link">
+                    <img src="img/novedad-2.png" alt="Producto nuevo 2">
+                  </a>
+                  <a href="tienda.html" class="producto-link">
+                    <img src="img/novedad-4.png" alt="Producto nuevo 4">
+                  </a>
+                  <a href="tienda.html" class="producto-link">
+                    <img src="img/novedad-5.png" alt="Producto nuevo 5">
+                  </a>
+                  <a href="tienda.html" class="producto-link">
+                    <img src="img/novedad-6.png" alt="Producto nuevo 6">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__cta"
+            style="animation: fadeInUp 1.2s ease-out 0.5s backwards; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="#countdown-section" class="btn btn--primary"
+              style="text-decoration: none; position: relative; overflow: hidden; font-size: 1.05rem; padding: 0.9rem 1.8rem; box-shadow: 0 8px 20px rgba(255,107,107,0.4); transition: all 0.3s ease;"
+              onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(255,107,107,0.5)'"
+              onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 20px rgba(255,107,107,0.4)'">
+              <span style="display: block; font-size: 1.1em; font-weight: 700;">🎓 Ver cursos</span>
+              <span id="countdown-button" style="display: block; font-size: 0.85em; margin-top: 4px; opacity: 0.95;">⏰
+                Cargando cuenta regresiva...</span>
+            </a>
+            <a href="tienda.html" class="btn btn--ghost"
+              style="text-decoration: none; font-size: 1.05rem; padding: 0.9rem 1.8rem; border: 2px solid #0b4d8c; color: #0b4d8c; font-weight: 600; box-shadow: 0 4px 12px rgba(11,77,140,0.1); transition: all 0.3s ease;"
+              onmouseover="this.style.background='#0b4d8c'; this.style.color='white'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(11,77,140,0.3)'"
+              onmouseout="this.style.background='transparent'; this.style.color='#0b4d8c'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(11,77,140,0.1)'">🛒
+              Ir a la tienda</a>
+          </div>
+
+          <div class="hero__badges"
+            style="animation: fadeInUp 1.4s ease-out 0.7s backwards; display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem;">
+            <span class="badge"
+              style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 12px rgba(102,126,234,0.25); transition: transform 0.2s ease;"
+              onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🤖
+              Robótica</span>
+            <span class="badge"
+              style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 12px rgba(245,87,108,0.25); transition: transform 0.2s ease;"
+              onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">💻
+              Programación</span>
+            <span class="badge"
+              style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 12px rgba(79,172,254,0.25); transition: transform 0.2s ease;"
+              onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">⚡
+              Electrónica</span>
+            <span class="badge"
+              style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 12px rgba(67,233,123,0.25); transition: transform 0.2s ease;"
+              onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">👨‍👩‍👧‍👦
+              Para niños y papás</span>
+          </div>
+        </div>
+
+        <!-- Carousel -->
+        <div class="hero__carousel">
+          <div class="carousel" data-carousel>
+            <div class="carousel__track" data-track>
+              <article class="slide" data-slide>
+                <img src="img/clase-4.jpeg" alt="Evidencias - Niños aprendiendo">
+                <div class="slide__caption">
+                  <strong>Nuestros Alumnos</strong>
+                  <span>Niños aprendiendo con tecnología</span>
+                </div>
+              </article>
+
+              <article class="slide" data-slide>
+                <img src="img/clase-1.jpeg" alt="Clase 1 - Robótica">
+                <div class="slide__caption">
+                  <strong>Robótica Educativa</strong>
+                  <span>Aprende robótica desde cero</span>
+                </div>
+              </article>
+
+              <article class="slide" data-slide>
+                <img src="img/clase-5.jpeg" alt="Evidencias - Aprendizaje">
+                <div class="slide__caption">
+                  <strong>Aprendizaje Real</strong>
+                  <span>Aprendizaje divertido y efectivo</span>
+                </div>
+              </article>
+
+              <article class="slide" data-slide>
+                <img src="img/clase-2.jpeg" alt="Clase 2 - Proyectos">
+                <div class="slide__caption">
+                  <strong>Proyectos Prácticos</strong>
+                  <span>Proyectos prácticos</span>
+                </div>
+              </article>
+
+              <article class="slide" data-slide>
+                <img src="img/clase-3.jpeg" alt="Clase 3 - Programación">
+                <div class="slide__caption">
+                  <strong>Programación</strong>
+                  <span>Programación y electrónica</span>
+                </div>
+              </article>
+            </div>
+
+            <button class="carousel__btn prev" data-prev aria-label="Anterior">‹</button>
+            <button class="carousel__btn next" data-next aria-label="Siguiente">›</button>
+
+            <div class="carousel__dots" data-dots></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown-section" class="section"
+      style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 0;">
+      <div class="container" style="text-align: center;">
+        <h2 style="color: white; font-size: 2rem; margin-bottom: 0.5rem;">⚡ Próxima Clase: Proyecto Flash-back</h2>
+        <p style="font-size: 1.1rem; opacity: 0.95; margin-bottom: 1rem;">Sábado, 31 de Enero de 2026 • 07:00 AM - 08:30
+          AM (CSTM)</p>
+
+        <div
+          style="background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 1rem 1.5rem; margin: 0 auto 2rem; max-width: 600px;">
+          <p style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">📝 Registro de Asistencia</p>
+          <p style="font-size: 0.95rem; opacity: 0.95; margin-bottom: 1rem;">⚠️ Es muy importante registrarse para
+            garantizar tu lugar en la clase</p>
+          <a href="https://forms.gle/GZHqUffXo2wfbAqn8" target="_blank" rel="noopener noreferrer"
+            style="display: inline-block; background: white; color: #667eea; padding: 0.75rem 2rem; border-radius: 50px; font-weight: 700; font-size: 1rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease;">
+            ✍️ Registrarse Ahora
+          </a>
+        </div>
+
+        <div id="countdown"
+          style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
+          <div class="countdown-box"
+            style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 12px; min-width: 100px;">
+            <div id="days" style="font-size: 3rem; font-weight: 700; line-height: 1;">00</div>
+            <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9;">DÍAS</div>
+          </div>
+          <div class="countdown-box"
+            style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 12px; min-width: 100px;">
+            <div id="hours" style="font-size: 3rem; font-weight: 700; line-height: 1;">00</div>
+            <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9;">HORAS</div>
+          </div>
+          <div class="countdown-box"
+            style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 12px; min-width: 100px;">
+            <div id="minutes" style="font-size: 3rem; font-weight: 700; line-height: 1;">00</div>
+            <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9;">MINUTOS</div>
+          </div>
+          <div class="countdown-box"
+            style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 12px; min-width: 100px;">
+            <div id="seconds" style="font-size: 3rem; font-weight: 700; line-height: 1;">00</div>
+            <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9;">SEGUNDOS</div>
+          </div>
+        </div>
+
+        <button disabled
+          style="display: inline-flex; align-items: center; gap: 0.75rem; background: white; color: #667eea; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); opacity: 0.5; cursor: not-allowed; border: none;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20 7h-5V4c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2v3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM9 4h6v3H9V4zm11 16H4V9h16v11zm-9-1l-4-4 1.41-1.41L10 16.17l6.59-6.59L18 11l-7 8z"
+              fill="currentColor" />
+          </svg>
+          Unirse a la Clase en Teams (Deshabilitado)
+        </button>
+      </div>
+    </section>
+
+    <!-- Sections -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>¿Qué encontrarás aquí?</h2>
+          <p>Un sitio pensado para niños curiosos y papás que quieren acompañarlos.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <h3>🎓 Cursos</h3>
+            <p>Clases por edades, retos y proyectos reales. Ideal para escuelas y talleres.</p>
+            <a href="#calendario-cursos" class="link" style="text-decoration: none;">Explorar cursos →</a>
+          </article>
+
+          <article class="card">
+            <h3>🛒 Tienda</h3>
+            <p>Kits para armar en casa. En cada kit viene guía paso a paso.</p>
+            <a href="tienda.html" class="link">Ver productos →</a>
+          </article>
+
+          <article class="card">
+            <h3>🧠 Blog para papás</h3>
+            <p>Consejos, actividades y recomendaciones para acompañar el aprendizaje.</p>
+            <a href="blog.html" class="link">Ver próximos artículos →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendario de Cursos -->
+    <section id="calendario-cursos" class="section"
+      style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+      <div class="container">
+        <div class="section__head" style="text-align: center; margin-bottom: 2.5rem;">
+          <h2 style="color: white; font-size: 2.2rem; margin-bottom: 0.5rem;">📅 Calendario de Próximos Cursos</h2>
+          <p style="font-size: 1.1rem; opacity: 0.95;">Clases interactivas de robótica, programación y tecnología</p>
+        </div>
+
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
+
+          <!-- Curso 1: Proyecto Flash-back -->
+          <div
+            style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 1.75rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 0.75rem; font-size: 2rem;">⚡
+              </div>
+              <div>
+                <h3 style="font-size: 1.4rem; margin-bottom: 0.25rem;">Proyecto Flash-back</h3>
+                <span
+                  style="background: rgba(255,255,255,0.25); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">PRÓXIMO</span>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <p style="font-size: 0.95rem; line-height: 1.6; opacity: 0.95; margin-bottom: 1rem;">Crea dispositivos
+                interactivos con luces LED y sensores. Proyecto avanzado de electrónica.</p>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">📆</span>
+                  <strong>Sábado, 31 de Enero 2026</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">⏰</span>
+                  <span>07:00 - 08:30 AM (CSTM)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">👥</span>
+                  <span>Edades: 10-16 años</span>
+                </div>
+              </div>
+            </div>
+            <a href="https://forms.gle/GZHqUffXo2wfbAqn8" target="_blank" rel="noopener noreferrer"
+              style="display: block; text-align: center; background: white; color: #667eea; padding: 0.75rem; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease;">
+              Registrarse →
+            </a>
+          </div>
+
+          <!-- Curso 2: Robótica Básica -->
+          <div
+            style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 1.75rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 0.75rem; font-size: 2rem;">
+                🤖</div>
+              <div>
+                <h3 style="font-size: 1.4rem; margin-bottom: 0.25rem;">Robótica Básica</h3>
+                <span
+                  style="background: rgba(255,200,100,0.3); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">PRÓXIMAMENTE</span>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <p style="font-size: 0.95rem; line-height: 1.6; opacity: 0.95; margin-bottom: 1rem;">Introducción a la
+                robótica con Arduino. Aprende a construir tu primer robot.</p>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">📆</span>
+                  <strong>Sábado, 14 de Febrero 2026</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">⏰</span>
+                  <span>07:00 - 08:30 AM (CSTM)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">👥</span>
+                  <span>Edades: 8-14 años</span>
+                </div>
+              </div>
+            </div>
+            <button disabled
+              style="display: block; width: 100%; text-align: center; background: rgba(255,255,255,0.3); color: white; padding: 0.75rem; border-radius: 8px; font-weight: 700; border: none; cursor: not-allowed; opacity: 0.7;">
+              Próximamente
+            </button>
+          </div>
+
+          <!-- Curso 3: Programación Python -->
+          <div
+            style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 1.75rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 0.75rem; font-size: 2rem;">
+                🐍</div>
+              <div>
+                <h3 style="font-size: 1.4rem; margin-bottom: 0.25rem;">Programación Python</h3>
+                <span
+                  style="background: rgba(255,200,100,0.3); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">PRÓXIMAMENTE</span>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <p style="font-size: 0.95rem; line-height: 1.6; opacity: 0.95; margin-bottom: 1rem;">Aprende a programar
+                desde cero con Python. Crea juegos y aplicaciones.</p>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">📆</span>
+                  <strong>Sábado, 28 de Febrero 2026</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">⏰</span>
+                  <span>07:00 - 08:30 AM (CSTM)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">👥</span>
+                  <span>Edades: 9-15 años</span>
+                </div>
+              </div>
+            </div>
+            <button disabled
+              style="display: block; width: 100%; text-align: center; background: rgba(255,255,255,0.3); color: white; padding: 0.75rem; border-radius: 8px; font-weight: 700; border: none; cursor: not-allowed; opacity: 0.7;">
+              Próximamente
+            </button>
+          </div>
+
+          <!-- Curso 4: Electrónica Básica -->
+          <div
+            style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 1.75rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="background: rgba(255,255,255,0.25); border-radius: 12px; padding: 0.75rem; font-size: 2rem;">
+                🔌</div>
+              <div>
+                <h3 style="font-size: 1.4rem; margin-bottom: 0.25rem;">Electrónica Básica</h3>
+                <span
+                  style="background: rgba(255,200,100,0.3); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">PRÓXIMAMENTE</span>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <p style="font-size: 0.95rem; line-height: 1.6; opacity: 0.95; margin-bottom: 1rem;">Circuitos básicos,
+                LEDs, resistencias y componentes electrónicos.</p>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">📆</span>
+                  <strong>Sábado, 14 de Marzo 2026</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">⏰</span>
+                  <span>07:00 - 08:30 AM (CSTM)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="opacity: 0.9;">👥</span>
+                  <span>Edades: 8-14 años</span>
+                </div>
+              </div>
+            </div>
+            <button disabled
+              style="display: block; width: 100%; text-align: center; background: rgba(255,255,255,0.3); color: white; padding: 0.75rem; border-radius: 8px; font-weight: 700; border: none; cursor: not-allowed; opacity: 0.7;">
+              Próximamente
+            </button>
+          </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 2.5rem;">
+          <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 1rem;">💡 ¿Tienes preguntas? Contáctanos para más
+            información sobre los cursos</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container split">
+        <div>
+          <h2>Contáctanos por WhatsApp</h2>
+          <p>
+            ¿Tienes dudas sobre los productos o cursos? Escríbenos directamente por WhatsApp Business.
+            Responderemos todas tus preguntas y te ayudaremos a elegir lo mejor para ti.
+          </p>
+          <a href="https://wa.me/525648380984?text=Hola!%20Me%20interesa%20conocer%20más%20sobre%20Progetto%20Tech%20Kids"
+            target="_blank" rel="noopener noreferrer" class="btn btn--primary"
+            style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            Contactar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__row">
+      <p>© <span id="year"></span> Progetto Tech Kids • Hecho para aprender jugando.</p>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="#aviso-privacidad" class="link"
+          onclick="event.preventDefault(); document.getElementById('modal-privacidad').style.display='flex'">Aviso de
+          Privacidad</a>
+        <a href="contacto.html" class="link">Contacto</a>
+      </div>
+    </div>
+    <div class="container" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(107, 114, 128, 0.2);">
+      <p style="font-size: 0.85rem; color: #6b7280; text-align: center; line-height: 1.6;">
+        📸 Las imágenes y fotografías mostradas en este sitio son propiedad de Progetto Tech Kids.
+        Todos los padres/tutores de los menores que aparecen en las fotografías han otorgado su consentimiento expreso
+        para el uso de estas imágenes con fines educativos y promocionales. Queda estrictamente prohibida
+        la reproducción, distribución o uso no autorizado de estas imágenes.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Modal Aviso de Privacidad -->
+  <div id="modal-privacidad"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; padding: 1rem;">
+    <div
+      style="background: white; max-width: 800px; max-height: 90vh; overflow-y: auto; border-radius: 16px; padding: 2rem; position: relative;">
+      <button onclick="document.getElementById('modal-privacidad').style.display='none'"
+        style="position: absolute; top: 1rem; right: 1rem; background: #f0f0f0; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button>
+
+      <h2 style="color: #0b4d8c; margin-bottom: 1.5rem;">📋 Aviso de Privacidad y Uso de Imágenes</h2>
+
+      <div style="color: #0f1724; line-height: 1.8;">
+        <h3 style="color: #0b4d8c; margin-top: 1.5rem; margin-bottom: 0.75rem;">1. Responsable del Tratamiento de Datos
+        </h3>
+        <p style="margin-bottom: 1rem;">
+          <strong>Progetto Tech Kids</strong> es responsable del tratamiento de los datos personales que nos
+          proporcione.
+          Nuestro compromiso es proteger su privacidad y la de sus hijos.
+        </p>
+
+        <h3 style="color: #0b4d8c; margin-top: 1.5rem; margin-bottom: 0.75rem;">2. Uso de Imágenes y Fotografías</h3>
+        <p style="margin-bottom: 1rem;">
+          Las fotografías mostradas en este sitio web son evidencias reales de nuestras clases y talleres.
+          <strong>Todos los padres/tutores han firmado un consentimiento informado</strong> que autoriza:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li>El uso de imágenes con fines educativos y promocionales</li>
+          <li>La publicación en nuestro sitio web y redes sociales</li>
+          <li>La exhibición en materiales de marketing relacionados con nuestros servicios</li>
+        </ul>
+
+        <h3 style="color: #0b4d8c; margin-top: 1.5rem; margin-bottom: 0.75rem;">3. Protección de Menores</h3>
+        <p style="margin-bottom: 1rem;">
+          Nos comprometemos a proteger la identidad y seguridad de los menores:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li>No publicamos nombres completos junto con fotografías</li>
+          <li>No compartimos información personal identificable</li>
+          <li>Respetamos el derecho de revocación del consentimiento en cualquier momento</li>
+          <li>Eliminamos imágenes si los padres/tutores lo solicitan</li>
+        </ul>
+
+        <h3 style="color: #0b4d8c; margin-top: 1.5rem; margin-bottom: 0.75rem;">4. Derechos del Titular</h3>
+        <p style="margin-bottom: 1rem;">
+          Los padres/tutores tienen derecho a:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>Acceder</strong> a los datos personales y imágenes de sus hijos</li>
+          <li><strong>Rectificar</strong> datos incorrectos o desactualizados</li>
+          <li><strong>Cancelar</strong> el uso de datos e imágenes</li>
+          <li><strong>Oponerse</strong> al tratamiento para fines específicos</li>
+          <li><strong>Revocar</strong> el consentimiento en cualquier momento</li>
+        </ul>
+
+        <h3 style="color: #0b4d8c; margin-top: 1.5rem; margin-bottom: 0.75rem;">5. Prohibición de Uso No Autorizado</h3>
+        <p style="margin-bottom: 1rem;">
+          Queda <strong>estrictamente prohibido</strong>:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li>Copiar, descargar o reproducir las imágenes sin autorización</li>
+          <li>Usar las fotografías para fines comerciales o no educativos</li>
+          <li>Modificar, editar o alterar las imágenes originales</li>
+          <li>Distribuir o compartir las imágenes en otros medios</li>
+        </ul>
+
+        <h3 style="color: #0b4d8c; margin-top: 1.5rem; margin-bottom: 0.75rem;">6. Contacto</h3>
+        <p style="margin-bottom: 1rem;">
+          Para ejercer sus derechos o solicitar la eliminación de imágenes, contáctenos:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li>📧 Email: <strong>contacto@progettokids.com</strong></li>
+          <li>📱 WhatsApp: <strong>+52 56 4838 0984</strong></li>
+        </ul>
+
+        <p
+          style="margin-top: 1.5rem; padding: 1rem; background: #f0f9ff; border-left: 4px solid #0b4d8c; border-radius: 8px;">
+          <strong>Última actualización:</strong> 10 de Enero de 2026<br>
+          Este aviso puede ser modificado. Las actualizaciones se publicarán en este sitio web.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+
+  <style>
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+      }
+    }
+  </style>
+
+  <script>
+    // Contador regresivo para la clase del 31 de enero de 2026
+    const classDate = new Date('2026-01-31T10:00:00-06:00'); // 10:00 AM hora de México
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = classDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown-badge').innerHTML = '🎉 ¡CLASE EN VIVO!';
+        document.getElementById('countdown-button').innerHTML = '🎉 ¡Clase iniciada!';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      // Badge compacto
+      let badgeText = '⏰ ';
+      if (days > 0) {
+        badgeText += `${days}d ${hours}h`;
+      } else if (hours > 0) {
+        badgeText += `${hours}h ${minutes}m`;
+      } else {
+        badgeText += `${minutes}m ${seconds}s`;
+      }
+      document.getElementById('countdown-badge').innerHTML = badgeText;
+
+      // Botón detallado
+      let buttonText = '⏰ Clase en línea: ';
+      if (days > 0) {
+        buttonText += `${days} días, ${hours} horas`;
+      } else if (hours > 0) {
+        buttonText += `${hours} horas, ${minutes} minutos`;
+      } else {
+        buttonText += `${minutes} minutos, ${seconds} segundos`;
+      }
+      document.getElementById('countdown-button').innerHTML = buttonText;
+    }
+
+    // Actualizar cada segundo
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+
+</html>

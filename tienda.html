@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda | Progetto Tech Kids</title>
+  <meta name="description" content="Tienda de productos de robótica y tecnología para niños"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(102,126,234,0.2);
+    }
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .product-info {
+      padding: 1.5rem;
+    }
+    .product-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    .product-description {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    .product-stock {
+      font-size: 0.85rem;
+      color: #28a745;
+      margin-bottom: 1rem;
+    }
+    .product-stock.out {
+      color: #dc3545;
+    }
+    .btn-buy {
+      width: 100%;
+      padding: 0.75rem;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-buy:hover {
+      background: #764ba2;
+    }
+    .btn-buy:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .category-filter {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      padding: 0.5rem 1.5rem;
+      border: 2px solid #667eea;
+      background: white;
+      color: #667eea;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active {
+      background: #667eea;
+      color: white;
+    }
+    .cart-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #667eea;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: transform 0.2s;
+    }
+    .cart-float:hover {
+      transform: scale(1.1);
+    }
+    .cart-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #dc3545;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    /* Animaciones del carrito */
+    @keyframes cartBounce {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.3) rotate(10deg); }
+      50% { transform: scale(1.1) rotate(-10deg); }
+      75% { transform: scale(1.2) rotate(5deg); }
+    }
+
+    @keyframes badgePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+
+    .cart-float.cart-animate {
+      animation: cartBounce 0.6s ease-in-out;
+    }
+
+    .cart-badge.badge-animate {
+      animation: badgePulse 0.4s ease-in-out;
+    }  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__row">
+      <a class="brand" href="index.html">
+        <img src="img/logo.png" alt="Progetto Tech Kids" class="brand__logo" style="width: 50px; height: 50px; border-radius: 8px; object-fit: contain; background: white; padding: 5px;">
+        <span class="brand__text">
+          <strong>Progetto Tech Kids</strong>
+          <small>Tienda Online</small>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a class="nav__link" href="index.html">Inicio</a>
+        <a class="nav__link" href="index.html#countdown-section">Cursos</a>
+        <a class="nav__link active" href="tienda.html">Tienda</a>
+        <span class="nav__link" style="opacity: 0.5; cursor: not-allowed; pointer-events: none;">Blog</span>
+        <a class="nav__link" href="contacto.html">Contacto</a>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Abrir menú">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Tienda -->
+    <section class="hero" style="padding: 3rem 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+      <div class="container" style="text-align: center; color: white;">
+        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 1rem;">🛒 Tienda Tech Kids</h1>
+        <p style="font-size: 1.2rem; opacity: 0.95;">Productos de robótica, electrónica y programación para niños</p>
+      </div>
+    </section>
+
+    <!-- Filtros -->
+    <section class="section">
+      <div class="container">
+        <div class="category-filter">
+          <button class="filter-btn active" data-category="todos">📦 Todos</button>
+          <button class="filter-btn" data-category="stampa">🖨️ Progetto Stampa</button>
+          <button class="filter-btn" data-category="robots-inter">🌍 Robots Internacionales</button>
+          <button class="filter-btn" data-category="kits">🔧 Kits de Robótica</button>
+          <button class="filter-btn" data-category="software">💻 Libros Software</button>
+        </div>
+
+        <!-- Grid de Productos -->
+        <div class="products-grid" id="products-grid">
+          
+          <!-- Producto 1: FLASH BACK - ⚡ PROMOCIÓN LANZAMIENTO -->
+          <article class="product-card" data-category="stampa" data-id="1" style="border: 3px solid #ff6b6b; position: relative;">
+            <div style="position: absolute; top: 10px; right: 10px; background: #ff6b6b; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; z-index: 10; box-shadow: 0 2px 8px rgba(255,107,107,0.4);">
+              🔥 PROMO LANZAMIENTO
+            </div>
+            <img src="img/progetto-stampa/flashback.jpg" alt="Kit Flash Back Memoria Arduino" class="product-image" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+            <div class="product-info">
+              <h3 class="product-title">🎮 Kit Flash Back - Juego de Memoria Arduino</h3>
+              <p class="product-description">Proyecto completo con Arduino para crear tu propio juego de memoria con luces LED y sonidos. Incluye carcasa impresa en 3D, componentes electrónicos y código. ¡Arma, programa y juega!</p>
+              
+              <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.75rem; margin-bottom: 1rem; border-radius: 4px;">
+                <div style="font-weight: 700; color: #856404; font-size: 0.9rem; margin-bottom: 0.25rem;">⚡ OFERTA EXCLUSIVA</div>
+                <div style="font-size: 0.85rem; color: #856404;">
+                  Inscríbete al curso del <strong>31 de Enero</strong> y obtén:<br>
+                  • <strong>20% descuento</strong> en este kit<br>
+                  • Envío GRATIS<br>
+                  • Soporte prioritario
+                </div>
+              </div>
+              
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="text-decoration: line-through; color: #999; font-size: 1rem;">$399 MXN</span>
+                <span class="product-price" style="margin: 0;">$319 MXN</span>
+                <span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">-20%</span>
+              </div>
+              
+              <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">
+                📦 <strong>Envío:</strong><br>
+                • <span style="text-decoration: line-through;">Estafeta: +$120 MXN</span> <strong style="color: #28a745;">GRATIS con curso</strong><br>
+                • DHL Express: +$180 MXN (1-2 días)<br>
+                • Recoge en taller: Gratis
+              </div>
+              
+              <div style="font-size: 0.8rem; color: #dc3545; font-weight: 600; margin-bottom: 0.5rem;">
+                ⏰ Oferta válida hasta el 31 de Enero 2026
+              </div>
+              
+              <div class="product-stock">✅ En stock (10 piezas disponibles)</div>
+              <button class="btn-buy" onclick="addToCart(1)" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);">🎁 Agregar con promoción</button>
+            </div>
+          </article>
+
+          <!-- Producto 2 -->
+          <article class="product-card" data-category="kits" data-id="2" style="position: relative; opacity: 0.6;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; z-index: 100; border-radius: 12px;">
+              <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔜</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">Próximamente</div>
+                <div style="font-size: 0.9rem; color: #666;">Proyecto en desarrollo</div>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?w=400&h=300&fit=crop" alt="Robot Arduino" class="product-image" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+            <div class="product-info">
+              <h3 class="product-title">Kit Robot Arduino Básico</h3>
+              <p class="product-description">Kit completo para construir tu primer robot con Arduino. Incluye sensores, motores y guía paso a paso.</p>
+              <div class="product-price">$850 MXN</div>
+              <div class="product-stock">✅ En stock</div>
+              <button class="btn-buy" onclick="addToCart(2)" disabled>Agregar al carrito</button>
+            </div>
+          </article>
+
+          <!-- Producto 3 -->
+          <article class="product-card" data-category="kits" data-id="3" style="position: relative; opacity: 0.6;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; z-index: 100; border-radius: 12px;">
+              <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔜</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">Próximamente</div>
+                <div style="font-size: 0.9rem; color: #666;">Proyecto en desarrollo</div>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop" alt="Kit Electrónica" class="product-image" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+            <div class="product-info">
+              <h3 class="product-title">Kit de Electrónica para Niños</h3>
+              <p class="product-description">200+ componentes para aprender electrónica jugando. Perfecto para principiantes de 8-12 años.</p>
+              <div class="product-price">$650 MXN</div>
+              <div class="product-stock">✅ En stock</div>
+              <button class="btn-buy" onclick="addToCart(3)" disabled>Agregar al carrito</button>
+            </div>
+          </article>
+
+          <!-- Producto 4 -->
+          <article class="product-card" data-category="robots-inter" data-id="4" style="position: relative; opacity: 0.6;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; z-index: 100; border-radius: 12px;">
+              <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔜</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">Próximamente</div>
+                <div style="font-size: 0.9rem; color: #666;">Proyecto en desarrollo</div>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1563191911-e65f8655ebf9?w=400&h=300&fit=crop" alt="Robot Avanzado" class="product-image" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+            <div class="product-info">
+              <h3 class="product-title">Robot Programable Avanzado</h3>
+              <p class="product-description">Robot con Bluetooth, sensores de luz y sonido. Compatible con Scratch y Python.</p>
+              <div class="product-price">$1,450 MXN</div>
+              <div class="product-stock">✅ En stock (5 disponibles)</div>
+              <button class="btn-buy" onclick="addToCart(4)" disabled>Agregar al carrito</button>
+            </div>
+          </article>
+
+          <!-- Producto 5 -->
+          <article class="product-card" data-category="software" data-id="5" style="position: relative; opacity: 0.6;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; z-index: 100; border-radius: 12px;">
+              <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔜</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">Próximamente</div>
+                <div style="font-size: 0.9rem; color: #666;">Proyecto en desarrollo</div>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop" alt="Libro Python" class="product-image" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+            <div class="product-info">
+              <h3 class="product-title">Python para Niños - Libro Digital</h3>
+              <p class="product-description">Aprende programación con proyectos divertidos. Incluye código de ejemplo y ejercicios.</p>
+              <div class="product-price">$250 MXN</div>
+              <div class="product-stock">✅ Disponible (descarga inmediata)</div>
+              <button class="btn-buy" onclick="addToCart(5)" disabled>Agregar al carrito</button>
+            </div>
+          </article>
+
+          <!-- Producto 6 -->
+          <article class="product-card" data-category="stampa" data-id="6" style="position: relative; opacity: 0.6;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; z-index: 100; border-radius: 12px;">
+              <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔜</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">Próximamente</div>
+                <div style="font-size: 0.9rem; color: #666;">Proyecto en desarrollo</div>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1608889476561-6242cfdbf622?w=400&h=300&fit=crop" alt="Robot Impreso 3D" class="product-image" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+            <div class="product-info">
+              <h3 class="product-title">Robot Impreso en 3D - Personalizable</h3>
+              <p class="product-description">Robot único hecho con impresión 3D. Incluye electrónica básica. Elige color y diseño.</p>
+              <div class="product-price">$450 MXN</div>
+              <div class="product-stock">✅ En stock</div>
+              <button class="btn-buy" onclick="addToCart(6)" disabled>Agregar al carrito</button>
+            </div>
+          </article>
+
+          <!-- Producto 7 -->
+          <article class="product-card" data-category="stampa" data-id="7" style="position: relative; opacity: 0.6;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; z-index: 100; border-radius: 12px;">
+              <div style="text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔜</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">Próximamente</div>
+                <div style="font-size: 0.9rem; color: #666;">Proyecto en desarrollo</div>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1612538498613-222fcd563ab2?w=400&h=300&fit=crop" alt="Decoraciones 3D" class="product-image" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+            <div class="product-info">
+              <h3 class="product-title">Pack Decoraciones Geek 3D</h3>
+              <p class="product-description">5 piezas impresas en 3D: robots, cohetes, engranajes. Perfectas para decorar tu espacio tech.</p>
+              <div class="product-price">$350 MXN</div>
+              <div class="product-stock">✅ En stock (personalizable)</div>
+              <button class="btn-buy" onclick="addToCart(7)" disabled>Agregar al carrito</button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Carrito Flotante -->
+    <div class="cart-float" onclick="openCart()">
+      🛒
+      <span class="cart-badge" id="cart-count">0</span>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__row">
+      <p>© <span id="year"></span> Progetto Tech Kids • Tienda segura con envíos a toda la República</p>
+      <a href="contacto.html" class="link">Contacto</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Productos database
+    const products = {
+      1: { name: '🎮 Kit Flash Back - Juego de Memoria Arduino (PROMO)', price: 319, stock: true, promo: true, originalPrice: 399 },
+      2: { name: 'Kit Robot Arduino Básico', price: 850, stock: true },
+      3: { name: 'Kit de Electrónica para Niños', price: 650, stock: true },
+      4: { name: 'Robot Programable Avanzado', price: 1450, stock: true },
+      5: { name: 'Python para Niños - Libro Digital', price: 250, stock: true },
+      6: { name: 'Robot Impreso en 3D - Personalizable', price: 450, stock: true },
+      7: { name: 'Pack Decoraciones Geek 3D', price: 350, stock: true }
+    };
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Actualizar contador
+    function updateCartCount() {
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    // Agregar al carrito
+    function addToCart(productId) {
+      const product = products[productId];
+      
+      if (!product || !product.stock) {
+        alert('⚠️ Producto no disponible');
+        return;
+      }
+
+      cart.push({
+        id: productId,
+        name: product.name,
+        price: product.price
+      });
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      
+      // Animar carrito flotante
+      const cartFloat = document.querySelector('.cart-float');
+      const cartBadge = document.querySelector('.cart-badge');
+      
+      if (cartFloat && cartBadge) {
+        cartFloat.classList.add('cart-animate');
+        cartBadge.classList.add('badge-animate');
+        
+        setTimeout(() => {
+          cartFloat.classList.remove('cart-animate');
+          cartBadge.classList.remove('badge-animate');
+        }, 600);
+      }
+      
+      // Notificación
+      alert(`✅ ${product.name} agregado al carrito\n\nTotal en carrito: ${cart.length} productos`);
+    }
+
+    // Eliminar producto del carrito
+    function removeFromCart(index) {
+      const removed = cart.splice(index, 1)[0];
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      
+      // Si el carrito queda vacío, cerrar modal
+      if (cart.length === 0) {
+        document.querySelector('[data-cart-modal]')?.remove();
+        alert('🛒 Carrito vacío');
+        return;
+      }
+      
+      // Reabrir modal actualizado
+      document.querySelector('[data-cart-modal]')?.remove();
+      openCart();
+    }
+
+    // Abrir carrito (redirige a WhatsApp con formulario)
+    function openCart() {
+      if (cart.length === 0) {
+        alert('🛒 Tu carrito está vacío\n\nAgrega productos para continuar');
+        return;
+      }
+
+      // Mostrar modal de checkout
+      showCheckoutForm();
+    }
+
+    // Mostrar formulario de checkout
+    function showCheckoutForm() {
+      let total = 0;
+      let productListHTML = '';
+      let productListText = '';
+      
+      cart.forEach((item, index) => {
+        total += item.price;
+        productListText += `${index + 1}. ${item.name} - $${item.price}\n`;
+        productListHTML += `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: white; border-radius: 8px; margin-bottom: 0.5rem;">
+            <div style="flex: 1;">
+              <div style="font-weight: 600; color: #333; margin-bottom: 0.25rem;">${item.name}</div>
+              <div style="color: #667eea; font-weight: 700;">$${item.price} MXN</div>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background: #ff6b6b; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s;" onmouseover="this.style.background='#ff5252'" onmouseout="this.style.background='#ff6b6b'">
+              🗑️ Eliminar
+            </button>
+          </div>
+        `;
+      });
+
+      // Crear modal
+      const modal = document.createElement('div');
+      modal.setAttribute('data-cart-modal', 'true');
+      modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 1rem;';
+      
+      modal.innerHTML = `
+        <div style="background: white; border-radius: 16px; padding: 2rem; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto;">
+          <h2 style="margin-bottom: 1rem; color: #0b4d8c;">🛒 Tu Carrito (${cart.length})</h2>
+          
+          <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <h3 style="font-size: 0.9rem; color: #666; margin-bottom: 0.75rem;">Productos:</h3>
+            ${productListHTML}
+            <div style="border-top: 2px solid #667eea; margin-top: 0.5rem; padding-top: 0.75rem; font-weight: 700; font-size: 1.2rem; text-align: right;">
+              Total: $${total} MXN
+            </div>
+          </div>
+
+          <form id="checkoutForm" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem; font-size: 0.9rem;">Nombre completo *</label>
+              <input type="text" id="customerName" required style="width: 100%; padding: 0.7rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;" placeholder="Juan Pérez">
+            </div>
+
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem; font-size: 0.9rem;">Teléfono (WhatsApp) *</label>
+              <input type="tel" id="customerPhone" required style="width: 100%; padding: 0.7rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;" placeholder="5512345678">
+            </div>
+
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem; font-size: 0.9rem;">Correo electrónico</label>
+              <input type="email" id="customerEmail" style="width: 100%; padding: 0.7rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;" placeholder="correo@ejemplo.com">
+            </div>
+
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem; font-size: 0.9rem;">Método de envío *</label>
+              <select id="shippingMethod" required style="width: 100%; padding: 0.7rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                <option value="">Selecciona una opción</option>
+                <option value="recoger">🏠 Recoger en taller (GRATIS)</option>
+                <option value="estafeta">📦 Estafeta (+$120 MXN, 2-4 días)</option>
+                <option value="dhl">✈️ DHL Express (+$180 MXN, 1-2 días)</option>
+              </select>
+            </div>
+
+            <div id="addressField" style="display: none;">
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem; font-size: 0.9rem;">Dirección de envío completa *</label>
+              <textarea id="customerAddress" rows="3" style="width: 100%; padding: 0.7rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: inherit;" placeholder="Calle, número, colonia, CP, ciudad, estado"></textarea>
+            </div>
+
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem; font-size: 0.9rem;">Método de pago *</label>
+              <select id="paymentMethod" required style="width: 100%; padding: 0.7rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                <option value="">Selecciona una opción</option>
+                <option value="transferencia">🏦 Transferencia bancaria</option>
+                <option value="oxxo">🏪 Depósito en OXXO</option>
+                <option value="efectivo">💵 Efectivo (solo recoger en taller)</option>
+                <option value="mercadopago">💳 Link de pago MercadoPago</option>
+              </select>
+            </div>
+
+            <!-- Instrucciones de pago dinámicas -->
+            <div id="paymentInstructions" style="display: none; background: #e7f3ff; border-left: 4px solid #667eea; padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+              <div style="font-weight: 700; color: #0b4d8c; font-size: 0.95rem; margin-bottom: 0.5rem;">📋 Instrucciones de pago</div>
+              <div id="paymentInstructionsContent" style="font-size: 0.85rem; color: #333; line-height: 1.6;"></div>
+            </div>
+
+            <!-- Badge de seguridad -->
+            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 0.75rem; border-radius: 8px; text-align: center; margin-top: 0.5rem;">
+              <div style="font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem;">🔒 Compra 100% Segura</div>
+              <div style="font-size: 0.75rem; opacity: 0.95;">✓ Datos protegidos · ✓ Pago verificado · ✓ Garantía de entrega</div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+              <button type="button" onclick="this.closest('div').parentElement.parentElement.parentElement.remove()" style="flex: 1; padding: 0.75rem; background: #e0e0e0; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                Cancelar
+              </button>
+              <button type="submit" style="flex: 2; padding: 0.75rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                📱 Enviar pedido por WhatsApp
+              </button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+
+      // Mostrar/ocultar campo de dirección
+      const shippingSelect = document.getElementById('shippingMethod');
+      const addressField = document.getElementById('addressField');
+      const addressInput = document.getElementById('customerAddress');
+
+      shippingSelect.addEventListener('change', function() {
+        if (this.value === 'estafeta' || this.value === 'dhl') {
+          addressField.style.display = 'block';
+          addressInput.required = true;
+        } else {
+          addressField.style.display = 'none';
+          addressInput.required = false;
+        }
+      });
+
+      // Mostrar instrucciones de pago según método seleccionado
+      const paymentSelect = document.getElementById('paymentMethod');
+      const paymentInstructions = document.getElementById('paymentInstructions');
+      const paymentInstructionsContent = document.getElementById('paymentInstructionsContent');
+
+      const paymentInstructionsData = {
+        transferencia: `
+          <strong>📱 Recibirás por WhatsApp:</strong><br>
+          • Número de cuenta BBVA/Banamex<br>
+          • CLABE interbancaria<br>
+          • Nombre del beneficiario<br>
+          • Monto exacto a depositar<br><br>
+          <strong>⏰ Importante:</strong> Envía tu comprobante de pago por WhatsApp para procesar tu pedido en menos de 2 horas.
+        `,
+        oxxo: `
+          <strong>📱 Recibirás por WhatsApp:</strong><br>
+          • Código de referencia OXXO<br>
+          • Instrucciones para pagar en tienda<br>
+          • Monto exacto a depositar<br><br>
+          <strong>⏰ Proceso:</strong> Ve a cualquier OXXO, proporciona el código en caja y paga en efectivo. Envía tu ticket por WhatsApp.
+        `,
+        efectivo: `
+          <strong>💵 Pago en efectivo:</strong><br>
+          • Paga directamente al recoger tu pedido<br>
+          • Ubicación: [Dirección del taller]<br>
+          • Horario: Lunes a Sábado 10:00 - 18:00<br><br>
+          <strong>📱 Confirmación:</strong> Te contactaremos por WhatsApp para coordinar tu visita.
+        `,
+        mercadopago: `
+          <strong>📱 Recibirás por WhatsApp:</strong><br>
+          • Link de pago seguro de MercadoPago<br>
+          • Puedes pagar con tarjeta de crédito/débito<br>
+          • Pago en cuotas disponible<br>
+          • Confirmación instantánea<br><br>
+          <strong>🔒 Seguridad:</strong> MercadoPago protege tus datos bancarios con encriptación de nivel bancario.
+        `
+      };
+
+      paymentSelect.addEventListener('change', function() {
+        if (this.value && paymentInstructionsData[this.value]) {
+          paymentInstructionsContent.innerHTML = paymentInstructionsData[this.value];
+          paymentInstructions.style.display = 'block';
+          
+          // Scroll suave hacia las instrucciones
+          setTimeout(() => {
+            paymentInstructions.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
+        } else {
+          paymentInstructions.style.display = 'none';
+        }
+      });
+
+      // Manejar envío del formulario
+      document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        sendOrderToWhatsApp();
+      });
+    }
+
+    // Enviar pedido a WhatsApp
+    function sendOrderToWhatsApp() {
+      const name = document.getElementById('customerName').value;
+      const phone = document.getElementById('customerPhone').value;
+      const email = document.getElementById('customerEmail').value;
+      const shipping = document.getElementById('shippingMethod');
+      const shippingText = shipping.options[shipping.selectedIndex].text;
+      const address = document.getElementById('customerAddress').value;
+      const payment = document.getElementById('paymentMethod');
+      const paymentText = payment.options[payment.selectedIndex].text;
+
+      // Calcular total con envío
+      let subtotal = 0;
+      cart.forEach(item => subtotal += item.price);
+
+      let shippingCost = 0;
+      if (shipping.value === 'estafeta') shippingCost = 120;
+      if (shipping.value === 'dhl') shippingCost = 180;
+
+      const total = subtotal + shippingCost;
+
+      // Generar mensaje
+      let message = '🛒 *NUEVO PEDIDO - Progetto Tech Kids*\n\n';
+      message += '📋 *DATOS DEL CLIENTE*\n';
+      message += `Nombre: ${name}\n`;
+      message += `Teléfono: ${phone}\n`;
+      if (email) message += `Email: ${email}\n`;
+      message += '\n';
+
+      message += '🛍️ *PRODUCTOS*\n';
+      cart.forEach((item, index) => {
+        message += `${index + 1}. ${item.name}\n`;
+        message += `   💰 $${item.price} MXN\n`;
+      });
+      message += '\n';
+
+      message += '📦 *ENVÍO*\n';
+      message += `${shippingText}\n`;
+      if (address) message += `Dirección: ${address}\n`;
+      message += '\n';
+
+      message += '💳 *MÉTODO DE PAGO*\n';
+      message += `${paymentText}\n\n`;
+
+      message += '💰 *RESUMEN*\n';
+      message += `Subtotal: $${subtotal} MXN\n`;
+      message += `Envío: $${shippingCost} MXN\n`;
+      message += `*TOTAL: $${total} MXN*\n\n`;
+
+      message += '✅ Esperando confirmación y datos de pago.';
+
+      // Abrir WhatsApp
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/525648380984?text=${encodedMessage}`;
+      
+      window.open(whatsappUrl, '_blank');
+
+      // Limpiar carrito
+      setTimeout(() => {
+        if (confirm('¿Deseas limpiar el carrito?')) {
+          cart = [];
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCartCount();
+        }
+      }, 1000);
+    }
+
+    // Filtros
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Activar botón
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        // Filtrar productos
+        const category = this.getAttribute('data-category');
+        const allProducts = document.querySelectorAll('.product-card');
+        
+        allProducts.forEach(card => {
+          if (category === 'todos') {
+            card.style.display = 'block';
+          } else if (card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Inicializar
+    updateCartCount();
+
+    // Hacer que las imágenes de productos desplacen hacia el botón de compra
+    document.querySelectorAll('.product-image').forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Encontrar el botón de compra dentro de la misma tarjeta
+        const productCard = this.closest('.product-card');
+        const buyButton = productCard.querySelector('.btn-buy');
+        
+        if (buyButton) {
+          // Scroll suave hacia el botón
+          buyButton.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+          
+          // Efecto visual en el botón
+          buyButton.style.transform = 'scale(1.05)';
+          buyButton.style.boxShadow = '0 8px 24px rgba(255,107,107,0.4)';
+          
+          setTimeout(() => {
+            buyButton.style.transform = 'scale(1)';
+            buyButton.style.boxShadow = '';
+          }, 300);
+        }
+      });
+    });
+  </script>
+
+  <!-- Bot de Telegram - Notificaciones automáticas -->
+  <script src="webhook-telegram.js"></script>
+</body>
+</html>

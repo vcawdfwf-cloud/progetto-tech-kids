@@ -1,0 +1,121 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "🎮 Kit Flash Back - Juego de Memoria Arduino",
+      "description": "Proyecto completo con Arduino para crear tu propio juego de memoria con luces LED y sonidos. Incluye carcasa impresa en 3D, componentes electrónicos y código. ¡Arma, programa y juega!",
+      "price": 319,
+      "originalPrice": 399,
+      "image": "img/progetto-stampa/flashback.jpg",
+      "category": "stampa",
+      "stock": true,
+      "promo": true,
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "🤖 Robot Seguidor de Línea Arduino",
+      "description": "Kit completo para armar tu robot seguidor de línea. Incluye sensores, motores, chasis y todos los componentes necesarios.",
+      "price": 450,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?w=400&h=300&fit=crop",
+      "category": "kits",
+      "stock": false,
+      "promo": false,
+      "featured": false,
+      "development": true
+    },
+    {
+      "id": 3,
+      "name": "🔌 Kit Básico de Electrónica",
+      "description": "Todo lo necesario para iniciar en electrónica: resistencias, LEDs, breadboard, cables y más.",
+      "price": 250,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop",
+      "category": "kits",
+      "stock": false,
+      "promo": false,
+      "featured": false,
+      "development": true
+    },
+    {
+      "id": 4,
+      "name": "🦾 Robot Brazo Mecánico",
+      "description": "Brazo robótico controlado por Arduino con 4 servomotores. Ideal para proyectos avanzados.",
+      "price": 899,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1563191911-e65f8655ebf9?w=400&h=300&fit=crop",
+      "category": "robots-inter",
+      "stock": false,
+      "promo": false,
+      "featured": false,
+      "development": true
+    },
+    {
+      "id": 5,
+      "name": "📚 Libro: Python para Niños",
+      "description": "Aprende a programar de forma divertida con proyectos interactivos y juegos.",
+      "price": 350,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop",
+      "category": "software",
+      "stock": false,
+      "promo": false,
+      "featured": false,
+      "development": true
+    },
+    {
+      "id": 6,
+      "name": "🖨️ Figura 3D Personalizada",
+      "description": "Impresión 3D de tu diseño personalizado. Contáctanos para cotización.",
+      "price": 150,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1608889476561-6242cfdbf622?w=400&h=300&fit=crop",
+      "category": "stampa",
+      "stock": false,
+      "promo": false,
+      "featured": false,
+      "development": true
+    },
+    {
+      "id": 7,
+      "name": "🎨 Set de Decoraciones 3D",
+      "description": "Colección de decoraciones impresas en 3D: llaveros, figuras y más.",
+      "price": 99,
+      "originalPrice": null,
+      "image": "https://images.unsplash.com/photo-1612538498613-222fcd563ab2?w=400&h=300&fit=crop",
+      "category": "stampa",
+      "stock": false,
+      "promo": false,
+      "featured": false,
+      "development": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "todos",
+      "name": "Todos",
+      "icon": "🔍"
+    },
+    {
+      "id": "stampa",
+      "name": "Progetto Stampa",
+      "icon": "🖨️"
+    },
+    {
+      "id": "robots-inter",
+      "name": "Robots Internacionales",
+      "icon": "🤖"
+    },
+    {
+      "id": "kits",
+      "name": "Kits de Robótica",
+      "icon": "⚡"
+    },
+    {
+      "id": "software",
+      "name": "Libros Software",
+      "icon": "📚"
+    }
+  ]
+}

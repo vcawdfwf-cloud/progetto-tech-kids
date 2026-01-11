@@ -1,0 +1,101 @@
+/* Minimal styles to avoid broken layout and show content */
+:root{
+	--brand:#0b4d8c;
+	--accent:#ff6b6b;
+	--muted:#6b7280;
+	--bg:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;line-height:1.45;color:#0f1724;background:var(--bg)}
+.container{max-width:1100px;margin:0 auto;padding:1rem}
+.header{background:var(--brand);color:#fff;padding:.75rem 0}
+.header__row{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:.5rem;align-items:center;text-decoration:none;color:inherit}
+.brand__logo{background:#fff;color:var(--brand);padding:.25rem .6rem;border-radius:6px;font-weight:800}
+.brand__text small{display:block;color:rgba(255,255,255,0.85);font-size:12px}
+.nav{display:flex;gap:.75rem;align-items:center}
+.nav__link{color:#fff;text-decoration:none;padding:.5rem .6rem;border-radius:6px}
+.nav__link:hover{background:rgba(255,255,255,0.07)}
+.hero{padding:3rem 0;background:linear-gradient(135deg,#e8f4ff 0%,#f0f9ff 50%,#fff 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(102,126,234,0.08),transparent 70%);border-radius:50%;animation:float 20s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-30%;left:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,107,107,0.06),transparent 70%);border-radius:50%;animation:float 15s ease-in-out infinite reverse}
+.hero__grid{display:flex;gap:1.5rem;align-items:center;position:relative;z-index:1}
+.hero__text{flex:1}
+.hero__carousel{width:565px;max-width:565px;height:565px;overflow:hidden;position:relative}
+.btn{display:inline-block;padding:.6rem 1rem;border-radius:12px;text-decoration:none;font-weight:700;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,0.3);transform:translate(-50%,-50%);transition:width 0.6s,height 0.6s}
+.btn:hover::before{width:300px;height:300px}
+.btn--primary{background:var(--accent);color:#fff}
+.btn--primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,107,0.3)}
+.btn--ghost{background:transparent;border:1px solid rgba(0,0,0,.08);color:var(--muted)}
+.cards{display:flex;gap:1rem;margin-top:1.25rem}
+.card{background:#fff;padding:1rem;border-radius:12px;box-shadow:0 6px 18px rgba(11,77,140,0.06);flex:1}
+.card h3{margin-bottom:.5rem}
+.footer{background:#f7f7f7;padding:1rem 0;margin-top:2rem}
+.carousel{position:relative;width:100%;height:100%;overflow:hidden}
+.carousel__viewport{overflow:hidden;border-radius:12px;width:100%;height:100%}
+.carousel__track{display:flex;transition:transform .6s cubic-bezier(.22,.9,.22,1);width:100%;height:100%}
+.slide{min-width:100%;flex-shrink:0;position:relative;height:100%;width:100%}
+.slide img{width:100%;height:100%;object-fit:contain;border-radius:12px;display:block;background:#f0f0f0}
+.slide__caption{position:absolute;left:16px;bottom:16px;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.45));color:#fff;padding:10px 14px;border-radius:8px}
+.carousel__btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.9);color:var(--brand);border:none;padding:.4rem .6rem;border-radius:8px;box-shadow:0 4px 12px rgba(11,77,140,0.12);cursor:pointer;z-index:10}
+.carousel__btn.prev{left:10px}
+.carousel__btn.next{right:10px}
+.carousel__btn:hover{transform:translateY(-50%) scale(1.03)}
+.carousel__dots{display:flex;gap:8px;justify-content:center;margin-top:.75rem}
+.carousel__dot{width:12px;height:12px;border-radius:50%;background:rgba(11,77,140,0.12);cursor:pointer;border:2px solid rgba(255,255,255,0.6)}
+.carousel__dot.active{background:var(--brand);transform:scale(1.15);border-color:rgba(255,255,255,0.9)}
+.burger{display:none;background:transparent;border:none;color:#fff;font-size:24px;cursor:pointer;padding:0.5rem}
+.burger:hover{background:rgba(255,255,255,0.1);border-radius:6px}
+@media(max-width:1000px){
+  .hero__grid{flex-direction:column}
+  .hero__carousel{max-width:100%;width:100%;height:450px;overflow:hidden}
+  .nav{
+    display:none;
+    position:fixed;
+    top:70px;
+    left:0;
+    right:0;
+    background:var(--brand);
+    flex-direction:column;
+    padding:1rem;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    z-index:1000;
+    gap:0.5rem;
+  }
+  .nav.active{display:flex}
+  .nav__link{
+    width:100%;
+    text-align:center;
+    padding:0.75rem 1rem;
+    background:rgba(255,255,255,0.05);
+    border-radius:8px;
+    font-size:16px;
+  }
+  .nav__link:hover{background:rgba(255,255,255,0.15)}
+  .burger{display:inline-block}
+}
+
+/* Accessibility */
+.carousel__btn:focus,.btn:focus,.nav__link:focus{outline:3px solid rgba(11,77,140,0.15);outline-offset:2px}
+
+/* Smooth scroll */
+html{scroll-behavior:smooth}
+
+/* Weekly image */
+.weekly{margin-top:1rem}
+.weekly h4{margin-bottom:.5rem;color:var(--brand);font-size:16px}
+.weekly__frame{background:linear-gradient(180deg,rgba(11,77,140,0.04),rgba(0,0,0,0.02));padding:8px;border-radius:12px;height:300px}
+.weekly__frame img{width:100%;height:280px;object-fit:contain;border-radius:8px;display:block;background:#f8f8f8}
+
+/* Productos carousel */
+.productos-carousel{position:relative;overflow:hidden;height:280px}
+.productos-track{display:flex;transition:transform 0.5s ease-in-out;height:100%}
+.productos-track a{width:100%;height:100%;flex-shrink:0;display:block;text-decoration:none;position:relative}
+.productos-track img{width:100%;height:100%;object-fit:contain;border-radius:8px;display:block;background:#f8f8f8;transition:transform 0.3s ease}
+.productos-track a::after{content:'Progetto Tech Kids';position:absolute;bottom:20px;right:20px;background:rgba(11,77,140,0.85);color:white;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;letter-spacing:0.5px;pointer-events:none;backdrop-filter:blur(5px)}
+.producto-link[data-disabled]:hover img{transform:scale(1.05);box-shadow:0 6px 20px rgba(11,77,140,0.15)}
+.producto-link[data-disabled]:active img{transform:scale(0.98)}
+
+@media(max-width:800px){.weekly__frame{height:250px}.weekly__frame img{height:230px}.productos-carousel{height:230px}.productos-track a{width:100%;height:100%}}
+
