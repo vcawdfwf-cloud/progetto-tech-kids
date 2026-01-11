@@ -64,33 +64,8 @@
   </div>
 
   <script>
-    // Lógica de Redirección Inteligente
-    (function () {
-      var hostname = window.location.hostname;
-      // Lista de dominios que deben mostrar mantenimiento y redirigir
-      // Incluye variants con y sin www
-      if (hostname.includes('progettokids.com')) {
-        // 1. Mostrar Overlay
-        var overlay = document.getElementById('maintenance-overlay');
-        if (overlay) overlay.style.display = 'flex';
-
-        // 2. Desactivar scroll del sitio de fondo
-        document.body.style.overflow = 'hidden';
-
-        // 3. Cuenta regresiva visual
-        var seconds = 5;
-        var timerSpan = document.getElementById('redir-timer');
-        setInterval(function () {
-          seconds--;
-          if (timerSpan) timerSpan.innerText = seconds;
-        }, 1000);
-
-        // 4. Redirigir
-        setTimeout(function () {
-          window.location.href = "https://progetto-deploy.vercel.app/";
-        }, 5000);
-      }
-    })();
+    // Redirección desactivada - Ahora en GitHub Pages
+    // Ya no redirigimos a Vercel
   </script>
 
   <!-- Header -->
