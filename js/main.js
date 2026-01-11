@@ -168,4 +168,135 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     });
   })();
+
+  // Formulario del Concurso de Robótica
+  const concursoForm = document.getElementById('concurso-form');
+  if (concursoForm) {
+    concursoForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formMensaje = document.getElementById('form-mensaje');
+      const submitButton = this.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.innerHTML;
+      
+      // Validar archivo
+      const archivoInput = this.querySelector('input[name="proyecto"]');
+      const archivo = archivoInput.files[0];
+      
+      if (!archivo) {
+        formMensaje.style.display = 'block';
+        formMensaje.style.background = 'rgba(255,107,107,0.2)';
+        formMensaje.style.color = 'white';
+        formMensaje.innerHTML = '❌ Por favor selecciona un archivo';
+        return;
+      }
+      
+      // Validar tipo de archivo
+      if (!archivo.type.match('image/jpeg') && !archivo.type.match('image/jpg')) {
+        formMensaje.style.display = 'block';
+        formMensaje.style.background = 'rgba(255,107,107,0.2)';
+        formMensaje.style.color = 'white';
+        formMensaje.innerHTML = '❌ Solo se permiten archivos JPG o JPEG';
+        return;
+      }
+      
+      // Validar tamaño (5MB máximo)
+      if (archivo.size > 5 * 1024 * 1024) {
+        formMensaje.style.display = 'block';
+        formMensaje.style.background = 'rgba(255,107,107,0.2)';
+        formMensaje.style.color = 'white';
+        formMensaje.innerHTML = '❌ El archivo no debe superar los 5MB';
+        return;
+      }
+      
+      // Deshabilitar botón y mostrar loading
+      submitButton.disabled = true;
+      submitButton.innerHTML = '⏳ Enviando...';
+      formMensaje.style.display = 'none';
+      
+      // Obtener datos del formulario
+      const formData = {
+        nombre: this.nombre.value,
+        edad: this.edad.value,
+        email: this.email.value,
+        telefono: this.telefono.value,
+        tipo_proyecto: this.tipo_proyecto.value,
+        descripcion: this.descripcion.value || 'Sin descripción',
+        archivo_nombre: archivo.name,
+        archivo_tamanio: (archivo.size / 1024).toFixed(2) + ' KB',
+        fecha_envio: new Date().toLocaleString('es-MX')
+      };
+      
+      // Crear mensaje para Telegram
+      const mensaje = `
+🏆 *NUEVA INSCRIPCIÓN - CONCURSO DE ROBÓTICA*
+
+👤 *Participante:* ${formData.nombre}
+🎂 *Edad:* ${formData.edad} años
+📧 *Email:* ${formData.email}
+📱 *Teléfono:* ${formData.telefono}
+🤖 *Tipo:* ${formData.tipo_proyecto === 'dibujo' ? '🎨 Dibujo de robot' : '🤖 Robot armado'}
+📝 *Descripción:* ${formData.descripcion}
+
+📎 *Archivo:* ${formData.archivo_nombre}
+📊 *Tamaño:* ${formData.archivo_tamanio}
+🕐 *Fecha:* ${formData.fecha_envio}
+
+---
+_Inscripción al Concurso - Progetto Tech Kids_
+      `.trim();
+      
+      // Simular envío (en producción, aquí irá la integración real)
+      setTimeout(() => {
+        formMensaje.style.display = 'block';
+        formMensaje.style.background = 'rgba(67,233,123,0.2)';
+        formMensaje.style.color = 'white';
+        formMensaje.innerHTML = '✅ ¡Proyecto enviado exitosamente!<br><small style="opacity: 0.9;">Recibirás confirmación por email.</small>';
+        
+        // Reset form
+        this.reset();
+        
+        // Reactivar botón
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+        
+        // Log para desarrollo (remover en producción)
+        console.log('📧 Mensaje a enviar:', mensaje);
+        console.log('📦 Datos del formulario:', formData);
+        
+        // Scroll al mensaje
+        formMensaje.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 1500);
+    });
+    
+    // Validación en tiempo real del archivo
+    const fileInput = concursoForm.querySelector('input[name="proyecto"]');
+    if (fileInput) {
+      fileInput.addEventListener('change', function() {
+        const formMensaje = document.getElementById('form-mensaje');
+        const file = this.files[0];
+        
+        if (file) {
+          if (!file.type.match('image/jpeg') && !file.type.match('image/jpg')) {
+            formMensaje.style.display = 'block';
+            formMensaje.style.background = 'rgba(255,165,0,0.2)';
+            formMensaje.style.color = 'white';
+            formMensaje.innerHTML = '⚠️ Solo archivos JPG/JPEG';
+            this.value = '';
+          } else if (file.size > 5 * 1024 * 1024) {
+            formMensaje.style.display = 'block';
+            formMensaje.style.background = 'rgba(255,165,0,0.2)';
+            formMensaje.style.color = 'white';
+            formMensaje.innerHTML = '⚠️ Archivo muy grande (máx 5MB)';
+            this.value = '';
+          } else {
+            formMensaje.style.display = 'block';
+            formMensaje.style.background = 'rgba(67,233,123,0.2)';
+            formMensaje.style.color = 'white';
+            formMensaje.innerHTML = `✅ ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+          }
+        }
+      });
+    }
+  }
 });
