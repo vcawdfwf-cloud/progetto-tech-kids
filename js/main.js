@@ -12,13 +12,26 @@ document.addEventListener('DOMContentLoaded', function(){
       nav.classList.toggle('active');
       burger.textContent = nav.classList.contains('active') ? '✕' : '☰';
     });
-    // Cerrar menú al hacer clic en un enlace
     nav.querySelectorAll('.nav__link').forEach(link => {
       link.addEventListener('click', ()=>{
         nav.classList.remove('active');
         burger.textContent = '☰';
       });
     });
+        nav.querySelectorAll('.nav__link').forEach(link => {
+          link.addEventListener('click', (e)=>{
+            // Si es el enlace de servicios, cerrar el menú
+            if(link.getAttribute('href') === 'servicios.html') {
+              nav.classList.remove('active');
+              burger.textContent = '☰';
+            }
+            // O cerrar siempre en móvil
+            if(window.innerWidth <= 1000) {
+              nav.classList.remove('active');
+              burger.textContent = '☰';
+            }
+          });
+        });
   }
 
   // Simple carousel

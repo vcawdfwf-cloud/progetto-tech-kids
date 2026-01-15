@@ -86,6 +86,7 @@
         <a class="nav__link" href="tienda.html">Tienda</a>
         <a class="nav__link" href="blog.html">Blog</a>
         <a class="nav__link" href="contacto.html">Contacto</a>
+        <a class="nav__link" href="servicios.html">Servicios</a>
       </nav>
 
       <button class="burger" id="burger" aria-label="Abrir menú">☰</button>
@@ -101,6 +102,7 @@
             style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(102,126,234,0.3);">
             ⚡ +500 niños ya están aprendiendo
           </div>
+        <div style="text-align:center; font-size:1.1rem; color:#0b4d8c; font-weight:700; margin-bottom:1.5rem;">📝 Publicamos un blog nuevo cada semana para papás y niños.</div>
           <h1
             style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 1rem; font-weight: 800; color: #0f1724;">
             Tu hijo <span
@@ -195,6 +197,60 @@
               style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 12px rgba(67,233,123,0.25); transition: transform 0.2s ease;"
               onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">👨‍👩‍👧‍👦
               Para niños y papás</span>
+          </div>
+        </div>
+
+        <!-- Carousel -->
+        <div class="hero__carousel">
+          <div class="carousel" data-carousel>
+            <div class="carousel__track" data-track>
+              <article class="slide" data-slide>
+                <img src="img/clase-4.jpeg" alt="Evidencias - Niños aprendiendo">
+                <div class="slide__caption">
+                  <strong>Nuestros Alumnos</strong>
+                  <span>Niños aprendiendo con tecnología</span>
+                </div>
+              </article>
+              <article class="slide" data-slide>
+                <img src="img/clase-1.jpeg" alt="Clase 1 - Robótica">
+                <div class="slide__caption">
+                  <strong>Robótica Educativa</strong>
+                  <span>Aprende robótica desde cero</span>
+                </div>
+              </article>
+              <article class="slide" data-slide>
+                <img src="img/clase-5.jpeg" alt="Evidencias - Aprendizaje">
+                <div class="slide__caption">
+                  <strong>Aprendizaje Real</strong>
+                  <span>Aprendizaje divertido y efectivo</span>
+                </div>
+              </article>
+              <article class="slide" data-slide>
+                <img src="img/clase-2.jpeg" alt="Clase 2 - Proyectos">
+                <div class="slide__caption">
+                  <strong>Proyectos Prácticos</strong>
+                  <span>Proyectos prácticos</span>
+                </div>
+              </article>
+              <article class="slide" data-slide>
+                <img src="img/clase-3.jpeg" alt="Clase 3 - Programación">
+                <div class="slide__caption">
+                  <strong>Programación</strong>
+                  <span>Programación y electrónica</span>
+                </div>
+              </article>
+            </div>
+            <button class="carousel__btn prev" data-prev aria-label="Anterior">‹</button>
+            <button class="carousel__btn next" data-next aria-label="Siguiente">›</button>
+            <div class="carousel__dots" data-dots></div>
+          </div>
+        </div>
+
+        <!-- Carrusel de Comentarios debajo del carrusel de imágenes -->
+        <div id="comentarios-carrusel" style="margin: 2.5rem auto 0 auto; max-width: 600px;">
+          <h2 style="text-align:center; color:#0b4d8c; font-size:1.4rem; font-weight:800; margin-bottom:1.5rem;">Comentarios de padres y alumnos</h2>
+          <div id="comentario-rotativo" style="background: linear-gradient(90deg,#e8f4ff 0%,#f0f9ff 100%); border-radius: 16px; box-shadow: 0 4px 18px rgba(11,77,140,0.07); padding: 1.5rem 1.2rem; min-height: 90px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #222; font-style: italic; transition: opacity 0.6s; opacity: 1;">
+            <!-- Mensaje dinámico aquí -->
           </div>
         </div>
 
@@ -564,6 +620,20 @@
           Nuestro compromiso es proteger su privacidad y la de sus hijos.
         </p>
 
+        <!-- Sección de Blogs -->
+        <div id="blog-semanal" style="margin: 2.5rem auto 0 auto; max-width: 700px;">
+          <h2 style="text-align:center; color:#0b4d8c; font-size:1.3rem; font-weight:800; margin-bottom:1rem;">Blog semanal</h2>
+          <p style="font-size: 1.1rem; color: #4a5568; text-align:center; margin-bottom: 1.5rem;">Publicamos un blog nuevo cada semana con ideas, consejos y novedades para papás y niños.</p>
+          <div id="blog-entradas">
+            <article style="background: #f8f9ff; border-radius: 12px; box-shadow: 0 2px 8px rgba(11,77,140,0.07); padding: 1.2rem; margin-bottom: 1.2rem;">
+              <h3 style="color:#0b4d8c; font-size:1.1rem; font-weight:700; margin-bottom:0.5rem;">¿Por qué aprender robótica desde pequeños?</h3>
+              <p style="color:#4a5568; font-size:1rem;">La robótica ayuda a los niños a desarrollar habilidades de lógica, creatividad y trabajo en equipo. ¡Descubre cómo iniciar a tu hijo en este mundo!</p>
+              <a href="blog.html" style="color:#ff6b6b; text-decoration:underline; font-size:0.95rem;">Leer más</a>
+            </article>
+            <!-- Aquí se agregarán más blogs cada semana -->
+          </div>
+        </div>
+
         <h3 style="color: #0b4d8c; margin-top: 1.5rem; margin-bottom: 0.75rem;">2. Uso de Imágenes y Fotografías</h3>
         <p style="margin-bottom: 1rem;">
           Las fotografías mostradas en este sitio web son evidencias reales de nuestras clases y talleres.
@@ -628,6 +698,58 @@
   </div>
 
   <script src="js/main.js"></script>
+<script>
+// Comentarios para el carrusel (actualizados)
+const comentarios = [
+  "Mi hijo disfruta mucho las clases, cada semana aprende algo nuevo y divertido.",
+  "¡Excelente ambiente! Los niños desarrollan habilidades tecnológicas y creativas.",
+  "Gracias a Progetto Tech Kids, mi hija se interesa por la robótica y la programación.",
+  "Los proyectos son muy prácticos y los profesores siempre motivan a los alumnos.",
+  "Como papás, vemos mucho avance y entusiasmo en nuestro hijo cada clase.",
+  "Recomiendo ampliamente los cursos, son dinámicos y muy bien organizados."
+];
+let comentarioActual = 0;
+const comentarioDiv = document.getElementById('comentario-rotativo');
+function mostrarComentario(idx) {
+  if (!comentarioDiv) return;
+  comentarioDiv.style.opacity = 0;
+  setTimeout(() => {
+    comentarioDiv.textContent = comentarios[idx];
+    comentarioDiv.style.opacity = 1;
+  }, 500);
+}
+mostrarComentario(comentarioActual);
+setInterval(() => {
+  comentarioActual = (comentarioActual + 1) % comentarios.length;
+  mostrarComentario(comentarioActual);
+}, 4000);
+</script>
+<script>
+// Comentarios para el carrusel (actualizados)
+const comentarios = [
+  "Mi hijo disfruta mucho las clases, cada semana aprende algo nuevo y divertido.",
+  "¡Excelente ambiente! Los niños desarrollan habilidades tecnológicas y creativas.",
+  "Gracias a Progetto Tech Kids, mi hija se interesa por la robótica y la programación.",
+  "Los proyectos son muy prácticos y los profesores siempre motivan a los alumnos.",
+  "Como papás, vemos mucho avance y entusiasmo en nuestro hijo cada clase.",
+  "Recomiendo ampliamente los cursos, son dinámicos y muy bien organizados."
+];
+let comentarioActual = 0;
+const comentarioDiv = document.getElementById('comentario-rotativo');
+function mostrarComentario(idx) {
+  if (!comentarioDiv) return;
+  comentarioDiv.style.opacity = 0;
+  setTimeout(() => {
+    comentarioDiv.textContent = comentarios[idx];
+    comentarioDiv.style.opacity = 1;
+  }, 500);
+}
+mostrarComentario(comentarioActual);
+setInterval(() => {
+  comentarioActual = (comentarioActual + 1) % comentarios.length;
+  mostrarComentario(comentarioActual);
+}, 4000);
+</script>
 
   <style>
     @keyframes pulse {

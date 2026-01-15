@@ -192,4 +192,31 @@
 
   <script src="js/main.js"></script>
 </body>
+<script>
+// Comentarios para el carrusel (actualizados)
+const comentarios = [
+  "Mi hijo disfruta mucho las clases, cada semana aprende algo nuevo y divertido.",
+  "¡Excelente ambiente! Los niños desarrollan habilidades tecnológicas y creativas.",
+  "Gracias a Progetto Tech Kids, mi hija se interesa por la robótica y la programación.",
+  "Los proyectos son muy prácticos y los profesores siempre motivan a los alumnos.",
+  "Como papás, vemos mucho avance y entusiasmo en nuestro hijo cada clase.",
+  "Recomiendo ampliamente los cursos, son dinámicos y muy bien organizados."
+];
+let comentarioActual = 0;
+const comentarioDiv = document.getElementById('comentario-rotativo');
+function mostrarComentario(idx) {
+  if (!comentarioDiv) return;
+  comentarioDiv.style.opacity = 0;
+  setTimeout(() => {
+    comentarioDiv.textContent = comentarios[idx];
+    comentarioDiv.style.opacity = 1;
+  }, 500);
+}
+mostrarComentario(comentarioActual);
+setInterval(() => {
+  comentarioActual = (comentarioActual + 1) % comentarios.length;
+  mostrarComentario(comentarioActual);
+}, 4000);
+</script>
+</body>
 </html>
