@@ -59,26 +59,83 @@ body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;line-height:1.45;col
     background:var(--brand);
     flex-direction:column;
     padding:1rem;
+    :root{
+      /* Brand tokens */
+      --brand: #0b4d8c;
+      --brand-2: #1e88e5;
+      --accent: #ff6b6b;
+      --muted: #6b7280;
+      --bg: #ffffff;
+
+      /* UI scale */
+      --page-max: 1100px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+
+      /* Elevation */
+      --shadow-1: 0 6px 18px rgba(11,77,140,0.06);
+      --shadow-2: 0 10px 30px rgba(11,77,140,0.10);
+
+      /* Typography */
+      --type-base: 16px;
+      --type-scale: 1.125;
+
+      /* Services area tokens (kept for compatibility) */
+      --svcs-bg: var(--brand);
+      --svcs-surface: #ffffff;
+      --svcs-surface-2: #f0f9ff;
+      --svcs-text: #0f1724;
+      --svcs-muted: #6b7280;
+      --svcs-border: #e6eef6;
+      --svcs-accent: var(--accent);
+      --svcs-accent-2: var(--brand);
+      --svcs-radius: 20px;
+      --svcs-shadow: 0 8px 32px rgba(11,77,140,0.06);
+    }
     box-shadow:0 4px 12px rgba(0,0,0,0.15);
     z-index:1000;
+    .root-font{font-size:var(--type-base)}
+    html{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;font-size:var(--type-base);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    body{line-height:1.6;color:var(--svcs-text);background:linear-gradient(180deg,#fbfdff 0%, #ffffff 100%)}
     gap:0.5rem;
   }
   .nav.active{display:flex}
+    .header{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;padding:1rem 0;box-shadow:var(--shadow-1)}
+    .header__row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
   .nav__link{
     width:100%;
     text-align:center;
+    .brand__logo{background:#fff;color:var(--brand);padding:.35rem .8rem;border-radius:10px;font-weight:800}
+    .brand__text small{display:block;color:rgba(255,255,255,0.9);font-size:12px}
     padding:0.75rem 1rem;
     background:rgba(255,255,255,0.05);
     border-radius:8px;
+    .nav{display:flex;gap:1rem;align-items:center}
+    .nav__link{color:#fff;text-decoration:none;padding:.6rem .9rem;border-radius:8px;font-weight:600}
+    .nav__link:hover{background:rgba(255,255,255,0.06);transform:translateY(-1px)}
     font-size:16px;
+    .hero{padding:4rem 0 3rem;background:linear-gradient(135deg,#eef7ff 0%,#ffffff 60%);position:relative;overflow:hidden}
   }
   .nav__link:hover{background:rgba(255,255,255,0.15)}
+    .btn{display:inline-block;padding:.65rem 1.15rem;border-radius:12px;text-decoration:none;font-weight:800;transition:all 0.22s ease;position:relative;overflow:hidden}
+    .btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,0.12);transform:translate(-50%,-50%);transition:width .45s,height .45s}
+    .btn:hover::before{width:260px;height:260px}
+    .btn--primary{background:linear-gradient(90deg,var(--accent),#ff8a80);color:#fff;box-shadow:var(--shadow-1)}
+    .btn--primary:hover{transform:translateY(-3px);box-shadow:var(--shadow-2)}
+    .btn--ghost{background:transparent;border:1px solid rgba(15,23,36,0.06);color:var(--muted)}
   .burger{display:inline-block}
 }
+    .card{background:#fff;padding:1.15rem;border-radius:12px;box-shadow:var(--shadow-1);flex:1}
+    .card h3{margin-bottom:.5rem;color:var(--brand)}
 
+    .carousel__btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.95);color:var(--brand);border:none;padding:.45rem .7rem;border-radius:10px;box-shadow:var(--shadow-1);cursor:pointer;z-index:10}
 /* Accessibility */
+    .hero__carousel{width:560px;max-width:560px;height:520px;overflow:hidden;position:relative;border-radius:12px}
 .carousel__btn:focus,.btn:focus,.nav__link:focus{outline:3px solid rgba(11,77,140,0.15);outline-offset:2px}
 
+    .weekly__frame{background:linear-gradient(180deg,rgba(11,77,140,0.03),rgba(0,0,0,0.02));padding:10px;border-radius:12px;height:300px}
+    .weekly__frame img{width:100%;height:280px;object-fit:cover;border-radius:10px;display:block;background:#fbfbfb}
 /* Smooth scroll */
 html{scroll-behavior:smooth}
 
