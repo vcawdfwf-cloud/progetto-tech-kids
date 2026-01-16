@@ -151,3 +151,17 @@ html{scroll-behavior:smooth}
   .svc-card__list li{ padding-left:20px }
 }
 
+/* Stronger override to ensure text is readable inside svc-cards */
+.svc-card, .svc-card *{
+  color: var(--svcs-text) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+.svc-card__list li{ color: #0f1724 !important; font-weight:500 !important }
+.svc-card__text, .svc-card__title{ color: #0f1724 !important }
+.svc-card{ background: #ffffff !important; }
+
+/* If parent section applies low opacity overlay, isolate card content */
+.svc-card{ position:relative; z-index:2 }
+.svcs::before, .svcs::after{ z-index:1 }
+
