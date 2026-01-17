@@ -1,9 +1,18 @@
 /* Minimal styles to avoid broken layout and show content */
 :root{
 	--brand:#0b4d8c;
-	--accent:#ff6b6b;
-	--muted:#6b7280;
-	--bg:#ffffff;
+  --accent:#ff6b6b;
+  --muted:#6b7280;
+  --bg:#ffffff;
+  --brand-2:#0a3b6b;
+  --shadow-1: 0 6px 18px rgba(11,77,140,0.08);
+  --shadow-2: 0 10px 30px rgba(11,77,140,0.12);
+  --svcs-surface:#ffffff;
+  --svcs-text:#0f1724;
+  --svcs-border:rgba(11,77,140,0.08);
+  --svcs-shadow:0 8px 24px rgba(11,77,140,0.06);
+  --svcs-accent:#1e88e5;
+  --svcs-accent-2:#0b4d8c;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;line-height:1.45;color:#0f1724;background:var(--bg)}
@@ -57,7 +66,7 @@ body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;line-height:1.45;col
     top:70px;
     left:0;
     right:0;
-    background:linear-gradient(90deg,var(--brand),var(--brand-2));
+    background:var(--brand);
     flex-direction:column;
     padding:1rem;
     box-shadow:0 4px 12px rgba(0,0,0,0.15);
