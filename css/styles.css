@@ -19,9 +19,9 @@ body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;line-height:1.45;col
 .hero{padding:3rem 0;background:linear-gradient(135deg,#e8f4ff 0%,#f0f9ff 50%,#fff 100%);position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(102,126,234,0.08),transparent 70%);border-radius:50%;animation:float 20s ease-in-out infinite}
 .hero::after{content:'';position:absolute;bottom:-30%;left:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,107,107,0.06),transparent 70%);border-radius:50%;animation:float 15s ease-in-out infinite reverse}
-.hero__grid{display:flex;gap:1.5rem;align-items:center;position:relative;z-index:1}
-.hero__text{flex:1}
-.hero__carousel{width:565px;max-width:565px;height:565px;overflow:hidden;position:relative}
+.hero__grid{display:flex;gap:1.5rem;align-items:stretch;position:relative;z-index:1;flex-wrap:wrap}
+.hero__text{flex:1;min-width:280px}
+.hero__carousel{width:100%;max-width:560px;aspect-ratio:1/1;height:auto;overflow:hidden;position:relative;border-radius:12px}
 .btn{display:inline-block;padding:.6rem 1rem;border-radius:12px;text-decoration:none;font-weight:700;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
 .btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,0.3);transform:translate(-50%,-50%);transition:width 0.6s,height 0.6s}
 .btn:hover::before{width:300px;height:300px}
@@ -36,7 +36,7 @@ body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;line-height:1.45;col
 .carousel__viewport{overflow:hidden;border-radius:12px;width:100%;height:100%}
 .carousel__track{display:flex;transition:transform .6s cubic-bezier(.22,.9,.22,1);width:100%;height:100%}
 .slide{min-width:100%;flex-shrink:0;position:relative;height:100%;width:100%}
-.slide img{width:100%;height:100%;object-fit:contain;border-radius:12px;display:block;background:#f0f0f0}
+.slide img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;background:#f0f0f0}
 .slide__caption{position:absolute;left:16px;bottom:16px;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.45));color:#fff;padding:10px 14px;border-radius:8px}
 .carousel__btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.9);color:var(--brand);border:none;padding:.4rem .6rem;border-radius:8px;box-shadow:0 4px 12px rgba(11,77,140,0.12);cursor:pointer;z-index:10}
 .carousel__btn.prev{left:10px}
@@ -104,7 +104,7 @@ body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;line-height:1.45;col
 
     .carousel__btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.95);color:var(--brand);border:none;padding:.45rem .7rem;border-radius:10px;box-shadow:var(--shadow-1);cursor:pointer;z-index:10}
 /* Accessibility */
-    .hero__carousel{width:560px;max-width:560px;height:520px;overflow:hidden;position:relative;border-radius:12px}
+    .hero__carousel{width:100%;max-width:560px;aspect-ratio:1/1;height:auto;overflow:hidden;position:relative;border-radius:12px}
 .carousel__btn:focus,.btn:focus,.nav__link:focus{outline:3px solid rgba(11,77,140,0.15);outline-offset:2px}
 
     .weekly__frame{background:linear-gradient(180deg,rgba(11,77,140,0.03),rgba(0,0,0,0.02));padding:10px;border-radius:12px;height:300px}
@@ -119,7 +119,7 @@ html{scroll-behavior:smooth}
 .weekly__frame img{width:100%;height:280px;object-fit:contain;border-radius:8px;display:block;background:#f8f8f8}
 
 /* Productos carousel */
-.productos-carousel{position:relative;overflow:hidden;height:280px}
+.productos-carousel{position:relative;overflow:hidden;aspect-ratio:16/9;min-height:180px}
 .productos-track{display:flex;transition:transform 0.5s ease-in-out;height:100%}
 .productos-track a{width:100%;height:100%;flex-shrink:0;display:block;text-decoration:none;position:relative}
 .productos-track img{width:100%;height:100%;object-fit:contain;border-radius:8px;display:block;background:#f8f8f8;transition:transform 0.3s ease}
@@ -127,7 +127,7 @@ html{scroll-behavior:smooth}
 .producto-link[data-disabled]:hover img{transform:scale(1.05);box-shadow:0 6px 20px rgba(11,77,140,0.15)}
 .producto-link[data-disabled]:active img{transform:scale(0.98)}
 
-@media(max-width:800px){.weekly__frame{height:250px}.weekly__frame img{height:230px}.productos-carousel{height:230px}.productos-track a{width:100%;height:100%}}
+@media(max-width:800px){.weekly__frame{height:250px}.weekly__frame img{height:230px}.productos-carousel{aspect-ratio:16/9;min-height:140px}.productos-track a{width:100%;height:100%}}
 
 /* Floating services CTA - bottom-right small panel with minimize/maximize */
 .floating-services{
