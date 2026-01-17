@@ -299,4 +299,44 @@ _Inscripción al Concurso - Progetto Tech Kids_
       });
     }
   }
+  
+  // Floating services CTA behavior
+  (function(){
+    const fs = document.getElementById('floating-services');
+    if(!fs) return;
+
+    const toggle = document.getElementById('fs-toggle');
+    const minBtn = document.getElementById('fs-min');
+
+    function setMinimized(min){
+      if(min){
+        fs.classList.add('minimized');
+        fs.setAttribute('aria-hidden','true');
+      } else {
+        fs.classList.remove('minimized');
+        fs.removeAttribute('aria-hidden');
+      }
+      try{ localStorage.setItem('fs_minimized', min ? '1' : '0'); }catch(e){}
+    }
+
+    // restore state
+    try{
+      const saved = localStorage.getItem('fs_minimized');
+      if(saved === '1') setMinimized(true);
+    }catch(e){}
+
+    if(toggle) toggle.addEventListener('click', ()=> setMinimized(true));
+    if(minBtn) minBtn.addEventListener('click', ()=> setMinimized(true));
+
+    // clicking minimized toggles open
+    fs.addEventListener('click', (e)=>{
+      if(fs.classList.contains('minimized')){
+        e.stopPropagation();
+        setMinimized(false);
+      }
+    });
+
+    // close when pressing Escape
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') setMinimized(true); });
+  })();
 });
