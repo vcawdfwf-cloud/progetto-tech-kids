@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Progetto Tech — Servicios (Flyer)</title>
+  <style>
+    /* Page setup for printing */
+    @page { size: A4 landscape; margin: 12mm; }
+    html,body{height:100%;margin:0;font-family: Inter, system-ui, Arial, Helvetica, sans-serif;color:#06263c}
+    .print-wrap{width:100%;height:100%;display:flex;align-items:stretch;justify-content:center;background:#06345a;padding:18px 0}
+    .panel{width:33.33%;padding:22px;box-sizing:border-box}
+    .left,.right{color:#fff}
+    .center{background:#fff;color:#06345a;border-radius:8px;padding:28px;box-shadow:0 12px 40px rgba(2,6,23,0.35)}
+    h1{font-size:28px;margin:8px 0 12px}
+    h2{font-size:20px;margin:6px 0}
+    p{margin:8px 0;color:rgba(0,0,0,0.7);line-height:1.45}
+    ul{margin:8px 0 0;padding-left:18px}
+    .logo{display:block;margin:0 auto 8px;width:120px}
+    .contact{margin-top:14px;font-weight:700}
+    .print-toolbar{position:fixed;top:12px;right:12px;z-index:1000}
+    .print-toolbar button{background:#0b4d8c;color:#fff;border:0;padding:10px 12px;border-radius:8px;cursor:pointer}
+    /* Hide toolbar on print */
+    @media print{.print-toolbar{display:none} body{background:#fff}}
+    /* Typography adjustments for print clarity */
+    .left h3,.right h3{font-size:18px;margin:0 0 6px}
+    .center .check{margin-top:12px}
+    .center .check li{margin:6px 0;font-weight:700}
+    /* Ensure content fits in printable area */
+    img{max-width:100%;height:auto}
+  </style>
+</head>
+<body>
+
+  <div class="print-toolbar">
+    <button onclick="window.print()">Imprimir / Guardar como PDF</button>
+  </div>
+
+  <div class="print-wrap">
+    <div class="panel left">
+      <h3>¿Tu tecnología te está frenando?</h3>
+      <p>Muchas empresas pierden tiempo, dinero y seguridad por sistemas mal configurados y procesos lentos. La tecnología debe ayudar a crecer, no convertirse en un problema.</p>
+      <h3>Ciberseguridad</h3>
+      <ul>
+        <li>Capacitación y concientización</li>
+        <li>Prevención de phishing y fraudes</li>
+        <li>Protección de información y respaldos</li>
+      </ul>
+    </div>
+
+    <div class="panel center">
+      <img class="logo" src="img/logo.png" alt="Progetto Tech" />
+      <h1>Impulsa tu empresa con tecnología segura e inteligente</h1>
+      <p>Implementamos soluciones que mejoran la eficiencia, reducen riesgos y permiten que tu empresa crezca con confianza.</p>
+      <ul class="check">
+        <li>Ciberseguridad</li>
+        <li>Desarrollo web y software</li>
+        <li>Manuales y control TI</li>
+        <li>Capacitación tecnológica</li>
+        <li>Chat-Bots y automatización</li>
+        <li>Sistemas de IA a medida</li>
+      </ul>
+    </div>
+
+    <div class="panel right">
+      <h3>Tecnología que trabaja para ti</h3>
+      <p>Orden, control y claridad para tu infraestructura tecnológica. No solo resolvemos problemas, te ayudamos a prevenirlos.</p>
+      <h3>Beneficios</h3>
+      <ul>
+        <li>Protección de la información</li>
+        <li>Optimización de procesos</li>
+        <li>Control y orden tecnológico</li>
+        <li>Acompañamiento profesional</li>
+      </ul>
+      <div class="contact">
+        www.progettokids.com
+        <br>
+        progetto.tech.consultas@gmail.com
+        <br>
+        56-48-38-09-84 (WhatsApp)
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
