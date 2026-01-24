@@ -93,7 +93,25 @@
     .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);will-change:opacity,transform;}
     .reveal.is-visible{opacity:1;transform:translateY(0);}
     @media (prefers-reduced-motion: reduce){.reveal{transition:none;transform:none;opacity:1;}.svc-card,.btn{transition:none;}}
-    .svcs { background: #f7f7f7 !important; }
+    .svcs { background: linear-gradient(180deg,var(--svcs-accent-2), #06345a); }
+
+    /* Tri-fold layout (inspired by provided flyers) */
+    .tri-grid{display:grid;grid-template-columns:1fr minmax(300px,380px) 1fr;gap:18px;align-items:stretch;}
+    .tri-col{padding:18px;border-radius:12px;color:rgba(255,255,255,.95);}
+    .tri-left, .tri-right{background:transparent;}
+    .tri-center{background:#ffffff;color:var(--svcs-accent-2);border-radius:18px;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;box-shadow:0 18px 60px rgba(2,6,23,0.36);}
+    .tri-center .logo{width:120px;height:auto;margin-bottom:12px;}
+    .tri-center h1{color:var(--svcs-accent-2);font-size:24px;line-height:1.05;margin:6px 0 12px;text-align:center;font-weight:800}
+    .tri-center p.lead{color:#374151;margin:0 0 14px;text-align:center}
+    .tri-center ul.checklist{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:10px;width:100%;}
+    .tri-center ul.checklist li{display:flex;gap:10px;align-items:flex-start;color:#0f1724;font-weight:600}
+    .tri-center ul.checklist li::before{content:'✔';color:var(--svcs-accent-2);background:transparent;border-radius:999px;padding-right:6px}
+    .tri-left h3,.tri-right h3{color:rgba(255,255,255,.98);margin-top:0}
+    .tri-left p,.tri-right p{color:rgba(255,255,255,.88)}
+    .contact-box{margin-top:18px;padding:12px;border-radius:12px;background:rgba(255,255,255,.06);display:flex;flex-direction:column;gap:6px}
+    .contact-box a{color:#fff;font-weight:700;text-decoration:none}
+
+    @media (max-width: 1024px){.tri-grid{grid-template-columns:1fr;}.tri-center{order:0;margin:0 auto;}.tri-left,.tri-right{padding:12px}}
   </style>
 </head>
 <body>
@@ -132,116 +150,55 @@
           </p>
         </header>
 
-        <div class="svcs__grid">
-          <!-- 1 -->
-          <article class="svc-card reveal" data-reveal-delay="0">
-            <div class="svc-card__icon" aria-hidden="true">
-              <!-- icon: document -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M14 3v4a1 1 0 0 0 1 1h4" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 11h8M8 15h8M8 19h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="svc-card__title">Manuales de Control y Optimización</h3>
-            <p class="svc-card__text">
-              Documentamos y estandarizamos procesos TI para que tu operación sea consistente, medible y eficiente.
+        <div class="svcs__grid tri-grid">
+          <div class="tri-col tri-left reveal" data-reveal-delay="0">
+            <h3>Servicios Tecnológicos</h3>
+            <p>
+              Soluciones integrales en tecnología, seguridad e inteligencia artificial para empresas, escuelas y emprendedores.
             </p>
-            <ul class="svc-card__list">
-              <li>Manual operativo TI</li>
-              <li>Protocolos y checklists</li>
-              <li>Optimización de flujos</li>
-              <li>Documentación técnica y administrativa</li>
+            <h4 style="margin-top:12px;color:rgba(255,255,255,.95)">Ciberseguridad</h4>
+            <ul style="color:rgba(255,255,255,.9);margin-left:14px"> 
+              <li>Capacitación en ciberseguridad</li>
+              <li>Buenas prácticas y prevención de fraudes</li>
+              <li>Protección de información y respaldos</li>
             </ul>
-          </article>
+            <h4 style="margin-top:12px;color:rgba(255,255,255,.95)">Desarrollo Digital</h4>
+            <p style="color:rgba(255,255,255,.88)">Páginas web, sistemas a la medida y automatización para optimizar procesos.</p>
+            <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+              <img src="img/logo.png" alt="Progetto Tech" style="width:120px;border-radius:6px;background:rgba(255,255,255,.06);padding:6px" />
+            </div>
+          </div>
 
-          <!-- 2 -->
-          <article class="svc-card reveal" data-reveal-delay="70">
-            <div class="svc-card__icon" aria-hidden="true">
-              <!-- icon: shield -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l8 4v7c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-4Z" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M9.5 12l1.8 1.8L14.8 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="svc-card__title">Capacitaciones de Ciberseguridad</h3>
-            <p class="svc-card__text">
-              Entrenamos a tu equipo para prevenir incidentes y reducir riesgos: desde lo básico hasta hábitos avanzados.
-            </p>
-            <ul class="svc-card__list">
-              <li>Prevención de phishing y fraudes</li>
-              <li>Contraseñas, accesos y dispositivos</li>
-              <li>Buenas prácticas por área</li>
-              <li>Guías rápidas y material descargable</li>
+          <div class="tri-col tri-center reveal" data-reveal-delay="80">
+            <img class="logo" src="img/logo.png" alt="Progetto Tech" />
+            <h1>Impulsa tu empresa con tecnología segura e inteligente</h1>
+            <p class="lead">Implementamos soluciones tecnológicas que mejoran la eficiencia, reducen riesgos y permiten que tu empresa crezca con confianza.</p>
+            <ul class="checklist">
+              <li>Ciberseguridad</li>
+              <li>Desarrollo web y software</li>
+              <li>Manuales y control TI</li>
+              <li>Capacitación tecnológica</li>
+              <li>Chat-Bots y automatización</li>
+              <li>Sistemas de IA a medida</li>
             </ul>
-          </article>
+          </div>
 
-          <!-- 3 -->
-          <article class="svc-card reveal" data-reveal-delay="140">
-            <div class="svc-card__icon" aria-hidden="true">
-              <!-- icon: code -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M9 18l-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M13 4l-2 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="svc-card__title">Programas y Sistemas a Medida</h3>
-            <p class="svc-card__text">
-              Creamos herramientas internas para control, monitoreo y automatización con documentación y soporte.
-            </p>
-            <ul class="svc-card__list">
-              <li>Automatización de procesos</li>
-              <li>Dashboards y reportes</li>
-              <li>Integraciones internas</li>
-              <li>Desarrollo escalable</li>
+          <div class="tri-col tri-right reveal" data-reveal-delay="160">
+            <h3>Tecnología que trabaja para ti</h3>
+            <p>Orden, control y claridad para tu infraestructura tecnológica. Reducimos riesgos y protegemos tu información más valiosa.</p>
+            <ul style="color:rgba(255,255,255,.9);margin-left:14px;margin-top:8px">
+              <li>Protección de la información</li>
+              <li>Optimización de procesos</li>
+              <li>Control y orden tecnológico</li>
+              <li>Acompañamiento profesional</li>
             </ul>
-          </article>
-
-          <!-- 4 -->
-          <article class="svc-card reveal" data-reveal-delay="210">
-            <div class="svc-card__icon" aria-hidden="true">
-              <!-- icon: globe -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M2 12h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M12 2c3 2.8 5 6.2 5 10s-2 7.2-5 10c-3-2.8-5-6.2-5-10S9 4.8 12 2Z" stroke="currentColor" stroke-width="1.8"/>
-              </svg>
+            <div class="contact-box">
+              <div>Agenda una asesoría sin costo</div>
+              <div style="font-size:14px">www.progettokids.com</div>
+              <div style="font-size:14px">progetto.tech.consultas@gmail.com</div>
+              <a href="https://wa.me/525648380984?text=Hola!%20Quiero%20solicitar%20asesor%C3%ADa%20de%20Progetto%20Tech%20Kids" target="_blank" rel="noopener noreferrer">56-48-38-09-84 (WhatsApp)</a>
             </div>
-            <h3 class="svc-card__title">Páginas Web Profesionales</h3>
-            <p class="svc-card__text">
-              Sitios corporativos rápidos, claros y orientados a conversión. Diseño responsivo y estructura limpia.
-            </p>
-            <ul class="svc-card__list">
-              <li>Landing pages y corporativos</li>
-              <li>Diseño responsive</li>
-              <li>Optimización de rendimiento</li>
-              <li>Secciones para captar leads</li>
-            </ul>
-          </article>
-
-          <!-- 5 -->
-          <article class="svc-card reveal" data-reveal-delay="280">
-            <div class="svc-card__icon" aria-hidden="true">
-              <!-- icon: headset -->
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 12a8 8 0 0 1 16 0v6a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M4 12v5a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M8 21v-7a2 2 0 0 0-2-2H4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M16 21v-7a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="svc-card__title">Asesoría TI para Empresas</h3>
-            <p class="svc-card__text">
-              Acompañamiento estratégico para mejorar infraestructura, continuidad, seguridad y control de costos.
-            </p>
-            <ul class="svc-card__list">
-              <li>Diagnóstico y roadmap TI</li>
-              <li>Optimización de recursos</li>
-              <li>Mejores prácticas y políticas</li>
-              <li>Soporte y seguimiento</li>
-            </ul>
-          </article>
+          </div>
         </div>
 
         <div class="svcs__cta reveal" data-reveal-delay="120">
