@@ -4,10 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Servicios | Progetto Tech</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    :root{--brand:#0b4d8c;--accent:#0a6aa8}
-    body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;margin:0;color:#06263c;background:#fff}
+    :root{--brand:#0b4d8c;--accent:#0a6aa8;--brand-contrast:#063a63}
+    body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;margin:0;color:#06263c;background:linear-gradient(180deg,#f8fbff,#ffffff)}
     .header .brand__text{font-weight:700}
     main{padding:18px}
     /* Tri-panel clean layout (flyer content) */
@@ -23,7 +24,59 @@
     ul{margin:8px 0 0;padding-left:18px}
     .contact{margin-top:14px;font-weight:700}
     .cta{display:flex;gap:10px;justify-content:center;margin-top:18px}
-    .btn{background:linear-gradient(135deg,#5fe6d4,#60a5fa);border:none;padding:10px 16px;border-radius:10px;color:#012032;font-weight:700;text-decoration:none}
+    .btn{background:linear-gradient(90deg,var(--brand),var(--brand-2));border:none;padding:10px 16px;border-radius:10px;color:#ffffff;font-weight:800;text-decoration:none;display:inline-block;box-shadow:0 6px 18px rgba(11,77,140,0.12);transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(11,77,140,0.16);opacity:0.98}
+    .btn:active{transform:translateY(-1px)}
+    /* Standout title */
+    .flyer-title{background:linear-gradient(90deg,var(--brand),#06345a);color:#fff;padding:18px 22px;border-radius:10px;box-shadow:var(--shadow-2);max-width:1200px;margin:0 auto 22px;font-weight:800;position:relative;overflow:hidden}
+    .flyer-title::before{content:"PROGETTO TECH";position:absolute;left:50%;top:8px;font-weight:900;font-size:64px;color:#fff;opacity:0.04;transform:translateX(-50%) rotate(-6deg);pointer-events:none;z-index:0;letter-spacing:8px}
+    .flyer-title h1{font-size:34px;letter-spacing:0.2px;margin:0;color:#fff;text-shadow:0 6px 22px rgba(2,6,23,0.45);position:relative;z-index:1}
+    .flyer-subtitle{color:rgba(255,255,255,0.95);font-size:16px;margin-top:6px;font-weight:600}
+    .flyer-lead{color:rgba(255,255,255,0.92);font-size:15px;margin-top:10px;max-width:1100px}
+    .flyer-subtitle,.flyer-lead{opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+    .flyer-title.shown .flyer-subtitle,.flyer-title.shown .flyer-lead{opacity:1;transform:translateY(0)}
+    @media (max-width:480px){.flyer-title h1{font-size:20px}.flyer-subtitle{font-size:14px}.flyer-lead{font-size:13px}}
+
+    /* Blocks layout (five service blocks) */
+    .blocks{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:1200px;margin:0 auto}
+    @media (max-width:800px){.blocks{grid-template-columns:1fr}}
+    .block{padding:26px;border-radius:12px;opacity:0;transform:translateY(12px);transition:transform .28s ease,box-shadow .28s ease}
+    .block.blue{background:linear-gradient(180deg,var(--brand),#06345a);color:#fff;box-shadow:var(--shadow-2)}
+    .block.white{background:#fff;color:var(--brand-contrast);border:1px solid rgba(11,77,140,0.06);box-shadow:var(--shadow-1)}
+    .block .block-title{font-size:20px;margin:0 0 8px;font-weight:900;text-transform:uppercase;letter-spacing:0.8px}
+    .block p{margin:10px 0 6px;color:inherit}
+    .block ul{margin:6px 0 0;padding-left:20px;color:inherit}
+    .block.white{border-left:6px solid var(--brand)}
+    .block.blue{border-left:6px solid rgba(255,255,255,0.12)}
+    .block:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(2,6,23,0.12)}
+
+    /* entrance animation */
+    @keyframes fadeUp {from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .blocks .block{animation:fadeUp .56s ease forwards}
+    .blocks .block:nth-child(1){animation-delay:.05s}
+    .blocks .block:nth-child(2){animation-delay:.12s}
+    .blocks .block:nth-child(3){animation-delay:.18s}
+    .blocks .block:nth-child(4){animation-delay:.24s}
+    .blocks .block:nth-child(5){animation-delay:.30s}
+
+    /* decorative blobs behind blocks */
+    .block{position:relative;overflow:visible}
+    .block::before{content:"";position:absolute;right:-20px;top:-30px;width:220px;height:220px;border-radius:50%;opacity:0.06;filter:blur(18px);z-index:0}
+    .blocks .block:nth-child(odd)::before{background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(255,255,255,0))}
+    .blocks .block:nth-child(even)::before{left:-20px;right:auto;background:radial-gradient(circle at 70% 70%, rgba(11,77,140,0.18), rgba(11,77,140,0))}
+    .block > *{position:relative;z-index:1}
+
+    /* Consolidated contact block at page end */
+    .contact-summary{max-width:1200px;margin:22px auto;padding:18px;border-radius:10px;background:#f8fafc;border:1px solid rgba(11,77,140,0.06);text-align:center;color:var(--brand-2);font-weight:700}
+    .contact-summary small{display:block;margin-top:6px;color:#374151;font-weight:500}
+    .contact-summary .ctas{display:flex;gap:12px;justify-content:center;margin-top:12px}
+    .contact-summary .btn{padding:10px 14px;border-radius:10px;font-weight:800}
+    .contact-summary a.btn-mail{background:#ffffff;color:var(--brand-2);border:1px solid rgba(11,77,140,0.12);text-decoration:none;padding:10px 14px}
+    .contact-summary a.btn-mail:hover{background:#f3f7fb}
+    .contact-summary a.btn-wa{background:linear-gradient(90deg,var(--accent),#4db0ff);color:#ffffff;text-decoration:none}
+    .contact-summary a.btn-wa:hover{filter:brightness(1.03)}
+    .contact-summary a:focus{outline:3px solid rgba(11,77,140,0.12);outline-offset:3px}
+
     /* Responsive */
     @media (max-width:1024px){.flyer{grid-template-columns:1fr}.center{order:0}}
     @media print{body{background:#fff}.flyer{max-width:100%;margin:0}.header,.footer,.cta{display:none}}
@@ -49,84 +102,87 @@
   </header>
 
   <main>
-    <section class="flyer" aria-label="Servicios Progetto Tech">
-      <div class="panel left">
-        <h2>Nuestros Servicios Tecnológicos</h2>
-        <p>Soluciones integrales en tecnología, seguridad e inteligencia artificial.</p>
-
-        <h3 style="margin-top:12px">🔒 CIBERSEGURIDAD</h3>
-        <p style="margin:6px 0 8px">Ciberseguridad Empresarial</p>
+    <div class="flyer-title" id="flyerTitle"><h1>Nuestros Servicios Tecnológicos</h1>
+      <p class="flyer-subtitle">Impulsa tu empresa con tecnología segura e inteligente</p>
+      <p class="flyer-lead">En Progetto Tech ayudamos a empresas, escuelas y emprendedores a optimizar, proteger y monetizar su tecnología mediante soluciones claras, seguras y eficientes.</p>
+    </div>
+    <section class="blocks" aria-label="Servicios Progetto Tech">
+      <div class="block blue">
+        <div class="block-title">1. CIBERSEGURIDAD</div>
+        <p>Soluciones integrales para reducir riesgos y proteger tu información.</p>
         <ul>
           <li>Capacitación en ciberseguridad para empresas y personal</li>
           <li>Buenas prácticas digitales y prevención de fraudes</li>
           <li>Protección de información y respaldos</li>
           <li>Concientización sobre ataques, phishing y uso seguro de sistemas</li>
         </ul>
-        <p style="margin-top:12px">Reducimos riesgos y protegemos la información más valiosa de tu empresa.</p>
-
-        <div style="margin-top:18px;display:flex;flex-direction:column;align-items:flex-start;gap:8px">
-          <img src="img/qr.png" alt="QR" style="width:110px;background:#fff;padding:6px;border-radius:6px;display:block" onerror="this.style.display='none'"/>
-          <div style="font-size:13px;color:rgba(255,255,255,.9)">www.progettokids.com</div>
-        </div>
       </div>
 
-      <div class="panel center">
-        <img src="img/logo.png" class="logo" alt="Progetto Tech"/>
-        <h1>INTELIGENCIA ARTIFICIAL &amp; CHATBOTS</h1>
-        <p style="font-weight:600;color:#374151;">Sistemas de Inteligencia Artificial a Medida</p>
-        <ul style="text-align:left;margin:8px auto;max-width:420px">
+      <div class="block white">
+        <div class="block-title">2. INTELIGENCIA ARTIFICIAL &amp; CHATBOTS</div>
+        <p>Sistemas de IA a medida para automatizar atención y procesos.</p>
+        <ul>
           <li>Desarrollo de chatbots inteligentes para atención al cliente</li>
           <li>Automatización de respuestas y procesos internos</li>
           <li>Sistemas de IA personalizados según tu negocio</li>
           <li>Integración con páginas web, WhatsApp o plataformas internas</li>
-          <li>Análisis de datos y optimización de decisiones</li>
         </ul>
-        <p style="margin-top:8px;color:#374151">La inteligencia artificial trabajando para tu empresa, no al revés.</p>
+      </div>
 
-        <h2 style="margin-top:18px">DESARROLLO DIGITAL</h2>
-        <ul style="text-align:left;margin:8px auto;max-width:420px">
+      <div class="block blue">
+        <div class="block-title">3. DESARROLLO DIGITAL</div>
+        <p>Desarrollamos tecnología funcional, clara y escalable.</p>
+        <ul>
           <li>Páginas web profesionales</li>
           <li>Sistemas informativos y administrativos</li>
           <li>Programas y aplicaciones a la medida</li>
           <li>Automatización de procesos repetitivos</li>
-          <li>Optimización de plataformas existentes</li>
         </ul>
-        <p style="margin-top:8px;color:#374151">Desarrollamos tecnología funcional, clara y escalable.</p>
       </div>
 
-      <div class="panel right">
-        <h3>MANUALES Y CONTROL TI</h3>
-        <p>Manuales, Control y Optimización</p>
+      <div class="block white">
+        <div class="block-title">4. MANUALES Y CONTROL TI</div>
+        <p>Documentación, control y estandarización para tu infraestructura.</p>
         <ul>
           <li>Manuales de control tecnológico</li>
           <li>Procedimientos y documentación TI</li>
           <li>Organización y estandarización de procesos</li>
-          <li>Optimización del uso de recursos tecnológicos</li>
         </ul>
-        <p style="margin-top:8px">Orden, control y claridad para tu infraestructura tecnológica.</p>
+      </div>
 
-        <h3 style="margin-top:12px">🧭 ASESORÍA Y SOPORTE TI</h3>
-        <p>Asesoría y Consultoría TI</p>
+      <div class="block blue">
+        <div class="block-title">5. ASESORÍA Y SOPORTE TI</div>
+        <p>Asesoría estratégica y soporte técnico especializado.</p>
         <ul>
           <li>Diagnóstico tecnológico</li>
           <li>Asesoría personalizada</li>
-          <li>Evaluación de infraestructura</li>
-          <li>Recomendaciones estratégicas</li>
+          <li>Evaluación de infraestructura y recomendaciones</li>
           <li>Soporte técnico especializado</li>
         </ul>
-        <p style="margin-top:8px">No solo resolvemos problemas, te ayudamos a prevenirlos.</p>
-
-        <div class="contact" style="margin-top:14px">
-          www.progettokids.com<br>
-          progetto.tech.consultas@gmail.com<br>
-          56-48-38-09-84 (WhatsApp)
-        </div>
       </div>
     </section>
+    
+    <div class="contact-summary" role="contentinfo" aria-label="Contacto Progetto Tech">
+      <div>Contacto — <a href="https://www.progettokids.com">www.progettokids.com</a> • progetto.tech.consultas@gmail.com • WhatsApp: 56-48-38-09-84</div>
+      <small>Horario de atención: Lunes a Viernes, 9:00–18:00</small>
+      <div class="ctas">
+        <a class="btn btn-mail" href="mailto:progetto.tech.consultas@gmail.com">Enviar correo</a>
+        <a class="btn btn-wa" href="https://wa.me/525648380984" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </div>
+    </div>
   </main>
 
   <footer class="footer" style="padding:14px 18px;text-align:center;color:#6b7280">
     &copy; 2026 Progetto Tech
   </footer>
+  <script>
+    // small enhancement: reveal subtitle/lead after paint
+    (function(){
+      try{
+        var el=document.getElementById('flyerTitle');
+        if(el) setTimeout(function(){el.classList.add('shown')},120);
+      }catch(e){/* ignore */}
+    })();
+  </script>
 </body>
 </html>
