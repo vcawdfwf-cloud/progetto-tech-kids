@@ -711,6 +711,36 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
-</body>
+    <!-- Hidden portfolio section (only visible via index.html#secret-portfolio) -->
+    <section id="secret-portfolio" aria-hidden="true">
+      <div class="wrap container">
+        <h2>Portafolio privado</h2>
+        <p class="lead">Esta sección es privada y solo se comparte por enlace. Aquí verás una selección de proyectos y casos de estudio.</p>
 
-</html>
+        <div class="portfolio-grid">
+          <article class="portfolio-card">
+            <img src="img/portfolio-1.jpg" alt="Proyecto 1">
+            <h3>Proyecto: Plataforma educativa</h3>
+            <p>Diseño y desarrollo de una plataforma de cursos en línea con seguimiento de progreso, fichas de proyecto y recursos descargables.</p>
+          </article>
+
+          <article class="portfolio-card">
+            <img src="img/portfolio-2.jpg" alt="Proyecto 2">
+            <h3>Proyecto: App de Robótica</h3>
+            <p>Aplicación móvil y backend para controlar kits educativos y visualizar telemetría en tiempo real.</p>
+          </article>
+
+          <article class="portfolio-card">
+            <img src="img/portfolio-3.jpg" alt="Proyecto 3">
+            <h3>Proyecto: Integración IoT</h3>
+            <p>Integración de sensores, automatizaciones y panel de control para laboratorios educativos.</p>
+          </article>
+        </div>
+
+        <a class="secret-close" href="index.html" aria-label="Cerrar portafolio">Cerrar</a>
+      </div>
+    </section>
+
+  </body>
+
+  </html>
