@@ -255,6 +255,46 @@
     <!-- Script de tracking de visitas para Telegram -->
     <script>
       (function() {
+        fetch('https://ipapi.co/json/')
+          .then(r => r.json())
+          .then(data => {
+            const ip = data.ip || 'desconocida';
+            const country = data.country_name || 'desconocido';
+            const city = data.city || '';
+            const region = data.region || '';
+            const msg = `🌐 Nueva visita en progettokids.com\nIP: ${ip}\nPaís: ${country}\nCiudad: ${city}, ${region}`;
+            fetch('/.netlify/functions/telegram', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ message: msg })
+            });
+          });
+      })();
+    </script>
+
+      <!-- Script de tracking de visitas para Telegram -->
+      <script>
+        (function() {
+          fetch('https://ipapi.co/json/')
+            .then(r => r.json())
+            .then(data => {
+              const ip = data.ip || 'desconocida';
+              const country = data.country_name || 'desconocido';
+              const city = data.city || '';
+              const region = data.region || '';
+              const msg = `🌐 Nueva visita en progettokids.com\nIP: ${ip}\nPaís: ${country}\nCiudad: ${city}, ${region}`;
+              fetch('/.netlify/functions/telegram', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: msg })
+              });
+            });
+        })();
+      </script>
+
+    <!-- Script de tracking de visitas para Telegram -->
+    <script>
+      (function() {
         // Solo ejecuta en producción (opcional: puedes limitar por dominio)
         fetch('https://ipapi.co/json/')
           .then(r => r.json())
